@@ -1,0 +1,74 @@
+﻿@model genie_trial
+@{
+    genie_user userInfo = ViewBag.MyInfo;
+    genie_user_vigor MyVigor = ViewBag.MyVigor;
+    game_pack PackInfo = ViewBag.Pack;
+    List<GenieAttr> Team = ViewBag.MonsAttr;
+}
+
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;<Abar sid="@ViewBag.MySid" href="/Trial/Index">试炼场</Abar>&gt;试炼资料
+</div>
+<div class="module-content">   
+    试炼：@Model.name <br />
+    等级：≧@Model.lev 级<br />    
+    所需元气：@Model.vigor<br />    
+    经验：+@Model.exp<br />
+    有机会获得：<br />
+    @foreach (var item in PackInfo.items)
+    {
+        @Html.Raw(GameTool.GetGamePropHtml(item.name, item.code, item.parameter, ViewBag.MySid))
+        <span>&nbsp;</span>
+    }
+</div>
+<div style="height:15px"></div>
+<div class="name">
+    <img src="/res/img/yz.gif" alt="." />我要挑战
+</div>
+<div class="module-content">
+    <div class="content">
+        <div>
+        试炼队列：
+            @for (int i = 1; i <= Team.Count; i++)
+            {
+                <Abar sid="@ViewBag.MySid" href="/Trial/Detail/@Team[i-1].id">@Team[i - 1].name</Abar>
+                if (i < Team.Count)
+                {
+                    <span>-</span>
+                }
+            }
+        <br />
+        我的元气：@MyVigor.vigor<br />
+        </div>
+        <PageMsg sid="@ViewBag.MySid" ></PageMsg>
+        @if (MyVigor.vigor >= Model.vigor)
+        {
+            if (userInfo.lev >= Model.lev)
+            {
+                <div>
+                    【<Abar sid="@ViewBag.MySid" href="/Trial/TrialOk/@Model.id" token="true">立即挑战</Abar>】
+                </div>
+            }
+            else
+            {
+                <div>
+                    <img alt="." src="/res/img/w.gif" />
+                    等级不满足.
+                </div>
+            }
+        }
+        else
+        {
+            <div>
+                <img alt="." src="/res/img/w.gif" />
+                元气不足哦.
+            </div>
+        }
+    </div>
+</div>
+<div style="height:15px"></div>
+<Abar sid="@ViewBag.MySid" href="/Trial/Index">返回试炼场主页</Abar>
+<br />
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;<Abar sid="@ViewBag.MySid" href="/Trial/Index">试炼场</Abar>&gt;试炼资料
+</div>

@@ -1,0 +1,125 @@
+﻿@model genie_user_genie
+@{
+    bool IsMy = ViewBag.IsMy;
+    genie_genie GenieInfo = ViewBag.GenieInfo;
+    CheakTowerNeed CheakResult = ViewBag.CheakData;
+    int type = ViewBag.Type;
+}
+
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;<Abar sid="@ViewBag.MySid" href="/Genie/Index?t=@Model.type">精灵</Abar>&gt;资料
+</div>
+<div class="module-content">
+    <img alt="." src="/res/genie/@GenieInfo.img" style="max-height:80px" />
+    <div>
+        精灵：@Model.name<br />
+        类型：@GenieTool.GetGenieTypeTips((int)Model.type) &nbsp;&nbsp;等级：@string.Format("{0}级", Model.lev) <br />
+        星级：@for (int i = 0; i < Model.start; i++)
+        {
+            <span>✩</span>
+        }
+        @if (Model.start == 0)
+        {
+            <span style="text-decoration: line-through">✩</span>
+        }
+        @string.Format("({0}星)", Model.start)
+        <br />
+        介绍：@GenieInfo.remark<br />
+        @if (string.IsNullOrEmpty(Model.skill))
+        {
+            <span>天赋：暂无</span>
+        }
+        else
+        {
+            SkillAttr skill = JsonConvert.DeserializeObject<SkillAttr>(Model.skill);
+            <span>天赋：<Abar sid="@ViewBag.MySid" href="/Genie/Skill?gu=@Model.id">@skill.attr.skill.name</Abar></span>
+        }
+        <br />
+        魅力：@Model.charm &nbsp;&nbsp;生命：@Model.blood
+    </div>
+</div>
+<div style="height:10px"></div>
+@if (IsMy)
+{
+    if (type == 0)
+    {
+        <div class="name">
+            <img src="/res/img/sh2.gif" alt="." /> 升级精灵&nbsp;&nbsp;<img src="/res/img/wy.gif" alt="."><Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@Model.id&t=1">融合精灵</Abar>
+        </div>
+        <div class="module-content">
+            升级所需：
+            <div class="list">
+                @Html.Raw(CheakResult.tips)
+            </div>
+            <PageMsg sid="@ViewBag.MySid"></PageMsg>
+            @if (Model.lev < GameConfig.MaxGenieLev)
+            {
+                if (CheakResult.result)
+                {
+                    <div>
+                        [<Abar sid="@ViewBag.MySid" href="/Genie/UpLevOk?gu=@Model.id&t=@type" token="true">立即升级</Abar>]
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <img alt="." src="/res/img/w.gif" />
+                        不满足升级条件!
+                    </div>
+                }
+            }
+            else
+            {
+                <div>
+                    <img alt="." src="/res/img/w.gif" />
+                    已达到满级啦!
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="name">
+            <img src="/res/img/sh2.gif" alt="." /> <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@Model.id&t=0">升级精灵</Abar>&nbsp;&nbsp;<img src="/res/img/wy.gif" alt=".">融合精灵
+        </div>
+        <div class="module-content">
+            <PageMsg sid="@ViewBag.MySid"></PageMsg>
+            @if (Model.start < Model.lev)
+            {
+                <div>
+                    融合精灵：<Abar sid="@ViewBag.MySid" href="/Genie/SerchGenie?gu=@Model.id">选择</Abar>
+                </div>                
+                if (ViewBag.FusInfo != null)
+                {
+                    genie_user_genie fusInfo = ViewBag.FusInfo;
+                    <div>
+                        已选择:  <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@fusInfo.id">@string.Format("{2}({0}级,{1}星)", fusInfo.lev, fusInfo.start, fusInfo.name)</Abar>
+                    </div>
+                    <div>
+                        [<Abar sid="@ViewBag.MySid" href="/Genie/GenieFusion?gu=@Model.id&fgu=@fusInfo.id" token="true">立即融合</Abar>]
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <img alt="." src="/res/img/w.gif" />
+                        暂未选择融合的精灵!
+                    </div>
+                }
+            }
+            else
+            {
+                <div>
+                    <img alt="." src="/res/img/w.gif" />
+                    已达到当前等级融合上限!
+                </div>
+            }
+        </div>
+    }
+}
+<div style="height:15px"></div>
+<Abar sid="@ViewBag.MySid" href="/Genie/Index?t=@Model.type">返回我的精灵</Abar>
+<br />
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;<Abar sid="@ViewBag.MySid" href="/Genie/Index">精灵</Abar>&gt;资料
+</div>

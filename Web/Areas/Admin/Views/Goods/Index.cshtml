@@ -1,0 +1,91 @@
+﻿@model List<genie_goods>
+<style type="text/css">
+
+	table {
+	border-collapse: collapse;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 20px;
+	}
+
+	table td, table th {
+	border: 1px solid #cad9ea;
+	color: #666;
+	height: 30px;
+	}
+
+	table thead th {
+	background-color: #CCE8EB;
+	width: 100px;
+	}
+
+	table tr:nth-child(odd) {
+	background: #fff;
+	}
+
+	table tr:nth-child(even) {
+	background: #F5FAFA;
+	}
+</style>
+<div>
+	<Abar sid="@ViewBag.MySid" href="/Admin/Goods/Edit">添加物品</Abar>
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<table width="100%" class="table">
+	<thead>
+		<tr>
+			<th>
+				物品ID
+			</th>
+			<th>
+				物品名称
+			</th>
+			<th>
+				物品类型
+			</th>			
+			<th>
+				操作
+			</th>
+		</tr>
+
+	</thead>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@item.goodsId
+			</td>
+			<td style="width:200px">
+				@item.goodsName
+			</td>
+			<td>
+				@if (item.code == GoodsEnum.Code.Vigor.ToString())
+				{
+					<span>元气道具</span>
+				}
+				else if (item.code == GoodsEnum.Code.Prop.ToString())
+				{
+					<span>道具</span>
+				}
+				else if (item.code == GoodsEnum.Code.Pack.ToString())
+				{
+					<span>礼包</span>
+				}
+				else if (item.code == GoodsEnum.Code.Exp.ToString())
+				{
+					<span>经验道具</span>
+				}
+				else if (item.code == GoodsEnum.Code.State.ToString())
+				{
+					<span>BUFF道具</span>
+				}
+			</td>		
+			<td style="width:180px">
+				<Abar sid="@ViewBag.MySid" href="/Admin/Goods/Edit?id=@item.goodsId">修改</Abar>.
+				<Abar sid="@ViewBag.MySid" href="/Admin/Goods/Delete?id=@item.goodsId">删除</Abar>
+			</td>
+		</tr>
+	}
+</table>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Index/Index">返回功能菜单</Abar>

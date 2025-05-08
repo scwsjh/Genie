@@ -1,0 +1,41 @@
+﻿@model genie_treasure
+@{
+
+}
+<div class="module-title">
+    @Model.name
+</div>
+<div class="content">
+    说明：@Html.Raw(Model.tips)<br />
+    宝藏结束：@Convert.ToDateTime(Model.endTime).ToString("yyyy-MM-dd HH:mm:ss")
+</div>
+<div class="clear"></div>
+<div class="name">
+    @string.Format("开启{0}次所需", ViewBag.Count)
+</div>
+<div class="content">
+    @Html.Raw(ViewBag.Tips)
+</div>
+<div class="clear"></div>
+<div class="name">
+    开启操作
+</div>
+<div class="content">
+    <FormBar sid="@ViewBag.MySid" method="post" action="/Treasure/TreasureOk" token="true">
+        <input name="ex" type="hidden" value="@Model.id" />
+        <div class="inArea">
+            开启次数:
+            <input name="count" class="ipt" type="number" maxlength="2" value="@ViewBag.Count">
+        </div>
+        <div class="common">
+            <PageMsg sid="@ViewBag.MySid"></PageMsg>
+        </div>
+        <div class="inArea">
+            <input type="submit" name="btnPay" class="btn btn-danger" value="立即开启">
+        </div>
+    </FormBar>
+</div>
+<div class="clear"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Treasure/Index">返回藏宝阁</Abar>
+</div>

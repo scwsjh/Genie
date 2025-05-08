@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+   
+}
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>@Html.Raw(string.Format("{0}", ViewBag.Title))</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="keywords" content="@Html.Raw(ViewBag.keywords)" />
+    <meta name="description" content="@Html.Raw(ViewBag.description)" />
+    <style id="rootFontSize">
+        html {
+            font-size: 100px !important;
+        }
+    </style>
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" asp-append-version="true" type="text/css" />
+    <link rel="stylesheet" href="/css/common.css" asp-append-version="true" type="text/css" />
+    <script src="~/js/jquery-2.2.4.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.cookie.js" asp-append-version="true"></script>        
+</head>
+<body class="bg_container">
+    <div class="bg_content">
+        <partial name="/Views/Shared/top.cshtml" />
+        <div class="main">
+            @RenderBody()
+        </div>
+        <partial name="/Views/Shared/footer.cshtml" />
+    </div>
+</body>
+</html>
+

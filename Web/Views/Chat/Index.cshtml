@@ -1,0 +1,104 @@
+﻿@model List<genie_chat>
+@{
+    int type = ViewBag.Type;
+}
+
+<div class="name">
+    <img src="/image/10066.gif" alt=".">
+    <Acheak sid="@ViewBag.MySid" href="/Chat/Index" on-cheak="0" on-value="@type">世界</Acheak>.
+    <Acheak sid="@ViewBag.MySid" href="/Chat/Index?t=1" on-cheak="1" on-value="@type">私聊</Acheak>.
+    <a href="@RequestHelper.GetRequestUrl(ViewContext.HttpContext.Request)">刷新</a>
+</div>
+<div class="content">
+    <div class="list">
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="row">
+                    @Html.Raw(item.code.Equals(Service.Core.ChatEnum.code.Public.ToString()) ? "[世界]" : "")
+                    @Html.Raw(item.code.Equals(Service.Core.ChatEnum.code.User.ToString()) ? "[私聊]" : "")
+                    @if (item.uid.Equals("0"))
+                    {
+                        <span class="system">系统</span>
+                    }
+                    else
+                    {
+                        if (item.code == Service.Core.ChatEnum.code.User.ToString() && item.uid == ViewBag.MyNo)
+                        {                            
+                            <span>对</span>
+                            <Nick sid="@ViewBag.MySid" user-no="@(int)item.toUser"></Nick>
+                        }
+                        else
+                        {
+                            <Nick sid="@ViewBag.MySid" user-no="@(int)item.uid"></Nick>
+                        }
+                    }
+                    :
+                    <span>
+                        @Html.Raw(Service.Core.ConvertContent.ConvertHtml(item.sign, ViewBag.MySid))
+                    </span>
+                    @if (item.code == Service.Core.ChatEnum.code.User.ToString() && item.uid != 0)
+                    {
+                        if (item.uid != ViewBag.MyNo)
+                        {
+                            <span onclick="Call('@item.uid','@item.nick')" style="color:#1e5494">(回复)</span>
+                        }
+                    }
+                    else
+                    {
+                        if (item.uid != ViewBag.MyNo)
+                        {
+                            <span onclick="Call('@item.uid','@item.nick')" style="color:#1e5494">(私聊)</span>
+                        }
+                    }
+                </div>
+            }
+        }
+        @if (Model.Count == 0)
+        {
+            <span>暂无消息.</span>
+        }
+    </div>
+</div>
+<PageBar page-class="content" page-size="@ViewBag.PageSize" page-Total="@ViewBag.Total" page-Url="@RequestHelper.GetRequestUrl(ViewContext.HttpContext.Request)"></PageBar>
+<div class="name">
+    <img src="/image/10065.gif" alt=".">发言(80字内)  <img src="/res/img/sx.gif" style="width: 19px;" alt="."><a href="@RequestHelper.GetRequestUrl(ViewContext.HttpContext.Request)">刷新</a>
+</div>
+<div class="content" style="margin-top:5px;">
+    <FormBar sid="@ViewBag.MySid" action="/Chat/Send" method="post">
+        <input type="hidden" name="t"  value="@type" />
+        <div style="font-size:15px" id="prv">
+            @Html.Raw(ViewBag.ToUserStr)
+        </div>
+        <input type="hidden" name="uid" id="uid" value="@ViewBag.ToUid" />
+        <textarea name="sign" id="sign" rows="3" cols="20" maxlength="80" class="ipt"></textarea>
+        <PageMsg sid="@ViewBag.MySid"></PageMsg>
+        <input type="submit" value="我要发言" class="btn btn-danger">
+    </FormBar>    
+    
+</div>
+
+<div  class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;聊天
+</div>
+<script>
+    function Call(id,name) {        
+        var sign = $('#sign').val();
+        sign += "＠" + name + " ";
+        $('#prv').html('回复:<strong>' + name + "</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span onclick='del()' style='color:#1e5494'>[删除]</span>")
+        $('#uid').val(id)
+
+        const pageHeight = document.documentElement.scrollHeight;
+        window.scrollTo(0, pageHeight);
+        $("#sign").focus();
+    }
+
+    function del() {
+        $('#prv').html('');
+        $('#uid').val(0)
+    }
+
+</script>

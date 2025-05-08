@@ -1,0 +1,122 @@
+﻿@model List<TempResult>
+@{
+    int lev = ViewBag.GenieLev;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;编队
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="module-content">
+    @* <img alt="1" src="/res/img/tc.gif" />队伍图册：无 *@
+    <div class="list">
+        <div class="row">
+            <img alt="1" src="~/res/img/sh.gif" />1.
+            @if (Model.Any(it => it.num == 1))
+            {
+                TempResult info = Model.First(it => it.num == 1);
+                <span>
+                    <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@info.id">@info.name</Abar>@string.Format("({0}级,{1}星)", info.lev, info.start)
+                    [<Abar sid="@ViewBag.MySid" href="/Team/Down?num=1" token-sign="@ViewBag.PageToken">下场</Abar>]
+                </span>
+            }
+            else
+            {
+                <Abar sid="@ViewBag.MySid" href="/Team/Change?num=1">无</Abar>
+            }
+        </div>
+
+        <div class="row">
+            <img alt="2" src="~/res/img/sh.gif" />2.
+            @if (lev >= 5)
+            {
+                if (Model.Any(it => it.num == 2))
+                {
+                    TempResult info = Model.First(it => it.num == 2);
+                    <span>
+                        <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@info.id">@info.name</Abar>@string.Format("({0}级,{1}星)", info.lev, info.start)
+                        [<Abar sid="@ViewBag.MySid" href="/Team/Down?num=2" token-sign="@ViewBag.PageToken">下场</Abar>]
+                    </span>
+                }
+                else
+                {
+                    <Abar sid="@ViewBag.MySid" href="/Team/Change?num=2">无</Abar>
+                }
+            }
+            else
+            {
+                <span>(等级5级开放)</span>
+            }
+        </div>
+        <div class="row">
+            <img alt="3" src="~/res/img/sh.gif" />3.
+            @if (lev >= 10)
+            {
+                if (Model.Any(it => it.num == 3))
+                {
+                    TempResult info = Model.First(it => it.num == 3);
+                    <span>
+                        <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@info.id">@info.name</Abar>@string.Format("({0}级,{1}星)", info.lev, info.start)
+                        [<Abar sid="@ViewBag.MySid" href="/Team/Down?num=3" token-sign="@ViewBag.PageToken">下场</Abar>]
+                    </span>
+                }
+                else
+                {
+                    <Abar sid="@ViewBag.MySid" href="/Team/Change?num=3">无</Abar>
+                }
+            }
+            else
+            {
+                <span>(等级10级开放)</span>
+            }
+        </div>
+        <div class="row">
+            <img alt="4" src="~/res/img/sh.gif" />4.
+            @if (lev >= 15)
+            {
+                if (Model.Any(it => it.num == 4))
+                {
+                    TempResult info = Model.First(it => it.num == 4);
+                    <span>
+                        <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@info.id">@info.name</Abar>@string.Format("({0}级,{1}星)", info.lev, info.start)
+                        [<Abar sid="@ViewBag.MySid" href="/Team/Down?num=4" token-sign="@ViewBag.PageToken">下场</Abar>]
+                    </span>
+                }
+                else
+                {
+                    <Abar sid="@ViewBag.MySid" href="/Team/Change?num=4">无</Abar>
+                }
+            }
+            else
+            {
+                <span>(等级15级开放)</span>
+            }
+        </div>
+        <div class="row">
+            <img alt="5" src="~/res/img/sh.gif" />5.
+            @if (lev >= 20)
+            {
+                if (Model.Any(it => it.num == 5))
+                {
+                    TempResult info = Model.First(it => it.num == 5);
+                    <span>
+                        <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@info.id">@info.name</Abar>@string.Format("({0}级,{1}星)", info.lev, info.start)
+                        [<Abar sid="@ViewBag.MySid" href="/Team/Down?num=5" token-sign="@ViewBag.PageToken">下场</Abar>]
+                    </span>
+                }
+                else
+                {
+                    <Abar sid="@ViewBag.MySid" href="/Team/Change?num=5">无</Abar>
+                }
+            }
+            else
+            {
+                <span>(等级20级开放)</span>
+            }
+        </div>
+    </div>
+</div>
+<div style="height:15px"></div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回主页</Abar>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;编队
+</div>

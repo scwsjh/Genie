@@ -1,0 +1,75 @@
+﻿@model genie_call
+@{
+    int CoolTime = ViewBag.CoolTime;
+    game_pack PackInfo = ViewBag.Pack;
+    CheakTowerNeed CheakResult = ViewBag.CheakData;
+    genie_user GenieUser = ViewBag.GenieUser;
+}
+
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;<Abar sid="@ViewBag.MySid" href="/Call/Index">秘境</Abar>&gt;秘境资料
+</div>
+<div class="module-content">
+    <img alt="." src="@Model.img" style="max-height:80px" /><br />
+    秘境：@Model.name <br />
+    等级：≧@Model.lev 级<br />
+    冷却：@Model.cool 分钟<br />
+    有机会获得：<br />
+    @foreach (var item in PackInfo.items)
+    {
+        @Html.Raw(GameTool.GetGamePropHtml(item.name, item.code, item.parameter, ViewBag.MySid))
+        <span>&nbsp;</span>
+    }
+</div>
+<div style="height:15px"></div>
+<div class="name">
+    <img src="/res/img/yz.gif" alt="." />我要召唤
+</div>
+<div class="module-content">
+    <div class="module-content">
+        召唤所需：
+        <div class="list">
+            @Html.Raw(CheakResult.tips)
+        </div>
+        <PageMsg sid="@ViewBag.MySid"></PageMsg>
+        @if (CoolTime < 1)
+        {
+            if (GenieUser.lev >= Model.lev)
+            {
+                if (CheakResult.result)
+                {
+                    <div>
+                        --->[<Abar sid="@ViewBag.MySid" href="/Call/CallOk/@Model.id" token="true">立即召唤</Abar>]
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <img alt="." src="/res/img/w.gif" />
+                        不满足召唤条件哦.
+                    </div>
+                }
+            }
+            else
+            {
+                <div>
+                    <img alt="." src="/res/img/w.gif" />
+                    等级小于 @Model.lev 级,无法召唤哦.
+                </div>
+            }
+        }
+        else
+        {
+            <div>
+                <img alt="." src="/res/img/w.gif" />
+                秘境冷却中,<b style="color:red;font-size:15px">@TimeHelper.TimeDiffBySeconds(CoolTime, "")</b>后可召唤
+            </div>
+        }
+    </div>
+</div>
+<div style="height:15px"></div>
+<Abar sid="@ViewBag.MySid" href="/Call/Index">返回秘境主页</Abar>
+<br />
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;<Abar sid="@ViewBag.MySid" href="/Call/Index">秘境</Abar>&gt;秘境资料
+</div>

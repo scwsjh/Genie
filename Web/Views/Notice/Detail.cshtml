@@ -1,0 +1,21 @@
+﻿@model genie_notice
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;公告
+</div>
+<div class="content">
+    <div class="common">
+        [标题]:<strong>@Model.title</strong>
+    </div>
+    <div class="common">
+        [时间]: @Convert.ToDateTime(Model.addTime).ToString("yyyy-MM-dd")
+    </div>
+    <div class="common">
+        [内容]:<br />
+        @Html.Raw(Service.Core.ConvertContent.ConvertHtml(Model.sign, ViewBag.MySid))
+    </div>
+</div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<div style="height:15px"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;公告
+</div>

@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    List<DouTemp> Users = ViewBag.Users;
+    List<game_pack_item> award = ViewBag.Award;
+    int count = 1;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;大乐斗
+</div>
+<div class="content">
+    <img alt="." src="/image/10146.gif" />今日乐斗：@string.Format("{0}/{1}", ViewBag.OkCount, ViewBag.Count)<br />
+    <img alt="." src="/image/10342.gif" height="16" /><Abar sid="@ViewBag.MySid" href="/Dou/Rest" token-sign="@ViewBag.PageToken">重置乐斗</Abar>(乐斗重置卡:@ViewBag.GoodsCount)
+</div>
+<div class="clear"></div>
+<div class="name">
+    <img alt="." src="/image/10312.gif" />乐斗广场&nbsp;&nbsp;<img src="/res/img/sx.gif" style="width: 19px;" alt="."><Abar sid="@ViewBag.MySid" href="/Dou/Index">刷新</Abar>
+</div>
+<div class="content">
+    <div class="list">
+        @foreach (var item in Users)
+        {
+            <div class="row">
+                @string.Format("{0}.", count)
+                <Nick sid="@ViewBag.MySid" user-no="@(int)item.userId"></Nick>
+                @if (item.status == 0)
+                {
+                    <span style="margin-left:5px">[<Abar sid="@ViewBag.MySid" href="/Dou/PkOk?u=@item.userId" token-sign="@ViewBag.PageToken">挑战(元气-1)</Abar>]</span>
+                }
+                else
+                {
+                <span>[已挑战]</span>    
+                }
+            </div>
+            count++;
+        }
+    </div>
+</div>
+<div class="clear"></div>
+<div class="name">
+    <img alt="." src="/image/10257.gif" /> 乐斗福利池
+</div>
+<div class="content">
+    有几率获得：<br />
+    @foreach (var item in award)
+    {
+        <span>@Html.Raw(GameTool.GetGamePropHtml(item.name, item.code, item.parameter, ViewBag.MySid))&nbsp;&nbsp;</span>
+    }
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<div style="height:15px"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;大乐斗
+</div>

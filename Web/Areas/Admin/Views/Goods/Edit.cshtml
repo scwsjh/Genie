@@ -1,0 +1,45 @@
+﻿@{
+	genie_goods goodsInfo = ViewBag.goodsInfo;
+	int goodsId = goodsInfo == null ? 0 : (int)goodsInfo.goodsId;
+	string name = goodsInfo == null ? "" : goodsInfo.goodsName;
+	int lev = goodsInfo == null ? 0 : (int)goodsInfo.lev;
+	string tips = goodsInfo == null ? "" : goodsInfo.tips;
+	string local = goodsInfo == null ? "" : goodsInfo.local;
+	string content = goodsInfo == null ? "" : goodsInfo.content;
+}
+<div class="module-title">
+	物品管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+	<FormBar sid="@ViewBag.MySid" action="/Admin/Goods/EditGoods" method="post">
+		@if (goodsId == 0)
+		{
+			<span>
+				物品ID:<input type="number" value="@goodsId" name="id" placeholder="物品ID" /><br />
+			</span>
+		}
+		else 
+		{
+			<span>
+				物品ID:<input type="number" disabled value="@goodsId" name="id" placeholder="物品ID" /><br />
+			</span>
+		}
+		物品名称:<input type="text" value="@name" name="name" placeholder="物品名称" /><br />
+		物品等级:<input type="text" value="@lev" name="lev" placeholder="物品等级" /><br />
+		物品类型:
+		<select name="code">
+			<option value="Prop">道具</option>
+			<option value="Vigor">元气道具</option>
+			<option value="Pack">礼包</option>
+			<option value="Exp">经验道具</option>
+			<option value="State">BUFF道具</option>
+		</select><br />
+		物品说明:<textarea name="tips">@tips</textarea><br />
+		物品来源:<textarea name="local">@local</textarea><br />
+		物品数据:<textarea name="content">@content</textarea><br />
+		<input type="submit" value="确认修改" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Goods/Index">返回物品管理</Abar>

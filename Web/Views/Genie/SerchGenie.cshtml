@@ -1,0 +1,30 @@
+﻿@model List<genie_user_genie>
+@{
+    int count = 1;
+    string guId = ViewBag.GuId;
+}
+<div class="name">
+    <img alt="." src="/res/img/qd2.gif" />选择融合的精灵
+</div>
+<div class="module-content">
+    <div class="list">
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                @Html.Raw(((ViewBag.PageIndex - 1) * ViewBag.PageSize + count).ToString() + ".")
+                <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@item.id">@string.Format("{2}({0}级,{1}星)", item.lev, item.start, item.name)</Abar>
+                [<Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@guId&fgu=@item.id" token-sign="@ViewBag.PageToken">选择</Abar>]
+            </div>
+            count++;
+        }
+    </div>
+    @if (Model.Count == 0)
+    {
+        <span>暂无精灵可选?</span>
+    }
+</div>
+<PageBar page-class="content" page-size="@ViewBag.PageSize" page-Total="@ViewBag.Total" page-Url="@RequestHelper.GetRequestUrl(ViewContext.HttpContext.Request)"></PageBar>
+
+<div style="height:15px"></div>
+<Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@guId&t=1">返回精灵资料</Abar>
+<br />

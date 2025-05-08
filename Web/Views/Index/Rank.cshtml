@@ -1,0 +1,56 @@
+﻿@{
+	int count = 1;
+	int type = ViewBag.Type;
+	List<wap_money> MoneyData = ViewBag.MoneyData;
+}
+<div class="module-title">
+	<Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;排行榜
+</div>
+<div class="module-content">
+	<div>
+		榜单：<Acheak sid="@ViewBag.MySid" href="/Index/Rank" on-cheak="0" on-value="@type">等级</Acheak>|
+		<Acheak sid="@ViewBag.MySid" href="/Index/Rank?t=1" on-cheak="1" on-value="@type">功勋</Acheak>|
+		@for (int i = 0; i < MoneyData.Count; i++)
+		{
+			<Abar sid="@ViewBag.MySid" href="/Index/Consume?t=@MoneyData[i].id&c=0">@MoneyData[i].name</Abar>
+			if ((i + 1) < MoneyData.Count)
+			{
+				<span>|</span>
+			}
+		}
+	</div>
+	<div class="list">
+		@if (type == 0)
+		{
+			List<genie_user> data = ViewBag.RankTemp;
+			foreach (var item in data)
+			{
+				<div class="row">
+					@Html.Raw(((ViewBag.PageIndex - 1) * ViewBag.PageSize + count).ToString() + ".")
+					<Nick sid="@ViewBag.MySid" user-no="@item.uid"></Nick>@string.Format("({0}级)", item.lev)
+				</div>
+				count++;
+			}
+		}
+		else if (type == 1)
+		{
+			List<genie_acc> data = ViewBag.RankTemp;
+			foreach (var item in data)
+			{
+				<div class="row">
+					@Html.Raw(((ViewBag.PageIndex - 1) * ViewBag.PageSize + count).ToString() + ".")
+					<Nick sid="@ViewBag.MySid" user-no="@item.userId"></Nick>@string.Format("(功勋：{0})", item.exploit)
+				</div>
+				count++;
+			}
+		}
+
+	</div>
+</div>
+<PageBar page-class="content" page-size="@ViewBag.PageSize" page-Total="@ViewBag.Total" page-Url="@RequestHelper.GetRequestUrl(ViewContext.HttpContext.Request)"></PageBar>
+
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回主页</Abar>
+<div style="height:15px"></div>
+<div>
+	<Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;排行榜
+</div>

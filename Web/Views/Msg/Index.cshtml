@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="/css/style.css" rel="stylesheet" asp-append-version="true" />    
+</head>
+<body>
+    <div>
+        @if (ViewBag.MsgStatus)
+        {            
+            <div class="module-title" style="font-weight:bold">
+                <img alt="." src="/image/tips.gif" />@ViewBag.Title
+            </div>
+            <div class="module-content">
+                @Html.Raw(ViewBag.Msg)<br />
+                <div class="clear"></div>
+                <span><Abar sid="@ViewBag.MySid" href="@ViewBag.Url">[@ViewBag.ButtonName]</Abar></span>
+                <div class="clear"></div>
+            </div>
+        }
+        else
+        {
+            <div class="module-title">
+                <img alt="." src="/image/tips.gif" />提示
+            </div>
+            <div class="module-content">
+                暂无提示内容!<br />
+                <Abar sid="@ViewBag.MySid" href="/Index/Index">去游戏首页</Abar>
+            </div>
+        }
+    </div>    
+</body>
+</html>
+<script src="/js/jquery-2.2.4.min.js" asp-append-version="true"></script>

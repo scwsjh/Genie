@@ -1,0 +1,33 @@
+﻿@model List<genie_trial>
+@{
+    genie_user GenieUser = ViewBag.UserInfo;
+    int count = 1;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;试炼场
+</div>
+<div class="content">
+    <div class="list">
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                @string.Format("{0}.", count)
+                @if (GenieUser.lev >= item.lev)
+                {
+                    <Abar sid="@ViewBag.MySid" href="/Trial/Info/@item.id">@item.name</Abar>                  
+                }
+                else
+                {
+                    <span>@string.Format("{0}({1}级解封)", item.name, item.lev)</span>
+                }
+            </div>
+            count++;
+        }
+    </div>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<div style="height:15px"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;试炼场
+</div>

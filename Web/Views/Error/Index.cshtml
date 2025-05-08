@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>刷新过快</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="~/css/main.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="icon" href="/images/favicon.ico" asp-append-version="true">
+
+</head>
+<body>
+    <div class="head">
+        【提示】
+    </div>
+    <div class="content">
+        你的手速已超过全服99%的玩家,休息一下吧。
+    </div>
+    <div class="clear"></div>
+    <div class="content">
+        <Abar sid="@ViewContext.HttpContext.Request.Query["sid"]" href="/Index/">返回首页</Abar>
+    </div>
+    <div class="clear"></div>
+</body>
+</html>

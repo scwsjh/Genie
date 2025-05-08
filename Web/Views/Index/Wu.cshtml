@@ -1,0 +1,77 @@
+﻿@model genie_user
+@{
+	int maxCount = ViewBag.MaxGenCount;
+	int GenieCount = ViewBag.MyGenieCount;
+	LevData levData = ViewBag.LevInfo;
+	genie_acc AccInfo = ViewBag.AccInfo;
+	List<genie_user_buff> BuffData = ViewBag.Buff;
+}
+<div class="module-title">
+	<Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;精灵坞
+</div>
+<div class="content">
+	<img src="/image/wu.gif" style="height: 16px;" alt=".">等级：@string.Format("{0}级", Model.lev)
+	(<img src="/image/10142.gif" style="height: 16px;" alt=".">@string.Format("{0}/{1}", Model.exp, ViewBag.MaxExp))<br />
+	<img src="/image/10352.gif" alt="." style="height: 16px;" />称号：@levData.name
+	@if (ViewBag.IsGetAward == true)
+	{
+		<span style="color:red;">(已领奖励)</span>
+	}
+	else
+	{
+		<span>[<Abar sid="@ViewBag.MySid" href="/Index/GetHonnerAward" token="true">领奖</Abar>]</span>
+	}	
+	<br />
+	<img src="/image/10322.gif" alt="." />温馨值：@string.Format("{0}/{1}", Model.poin, GameConfig.MaxPoin)
+	@if (Model.poin < GameConfig.MaxPoin)
+	{
+		double diffTime = TimeHelper.TimeDiffSeconds(DateTime.Now, Convert.ToDateTime(Model.poinTime).AddMinutes(GameConfig.PoinTime));
+		<img alt="." src="~/res/img/10144.gif" />
+		<span style="font-size:14px;">
+			@string.Format("({0}后温馨值+1)", TimeHelper.TimeDiffBySeconds((int)diffTime, ""))
+		</span>
+	}
+	<br />	
+	<img src="/image/wu.gif" style="height: 16px;" alt=".">空间：@string.Format("{0}/{1}", GenieCount, maxCount)<br />
+	元晶：@AccInfo.copper<br />
+	功勋：@AccInfo.exploit<br />
+</div>
+<div class="name">
+	<img src="/image/10339.gif" alt="." />装扮
+	&nbsp;&nbsp;&nbsp;<Abar sid="@ViewBag.MySid" href="/Goods/Index">添装扮</Abar>
+</div>
+<div class="content">
+	<div class="kx_list">
+		@foreach (var item in BuffData)
+		{
+			<div class="rows">
+				<table>
+					<tbody>
+						<tr>
+							<td valign="top" align="center" style="width:-50px;">
+								<div class="avatar">
+									<p style=" "><img src="@item.img" width="50" alt="."></p>
+								</div>
+							</td>
+							<td class="rg">
+								<Abar sid="@ViewBag.MySid" href="/Goods/Info/@item.goodsId">@item.name</Abar><span style="margin-left:10px;font-size:14px;float:right">@string.Format("(剩余：{0}次)", item.count)</span> <br />
+								<em>@item.tip</em>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		}
+		@if (BuffData.Count == 0)
+		{
+			<div>暂无装扮.</div>
+		}
+
+	</div>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<div class="clear"></div>
+<div>
+	<Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;精灵坞
+</div>

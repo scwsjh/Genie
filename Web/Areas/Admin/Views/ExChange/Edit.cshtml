@@ -1,0 +1,23 @@
+﻿@model genie_exchange
+@{
+
+}
+<div class="module-title">
+	福利管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+	<FormBar sid="@ViewBag.MySid" action="/Admin/ExChange/EditOk" method="post">
+		ID:<input type="number" value="@Model.exId" name="exId" /><br />
+		名称:<input type="text" value="@Model.name" name="name" /><br />
+		次数:<input type="number" value="@Model.count" name="count" /><br />
+		说明:<input type="text" value="@Model.tips" name="tips" /><br />
+		所需:<textarea name="needData" style="height:200px">@Model.needData</textarea><br />
+		奖励:<textarea name="getData" style="height:200px">@Model.getData</textarea><br />
+		开始时间:<input type="text" value="@Convert.ToDateTime( Model.startTime).ToString("yyyy-MM-dd HH:mm:ss")" name="startTime" placeholder="开始时间" /><br />
+		结束时间:<input type="text" value="@Convert.ToDateTime( Model.endTime).ToString("yyyy-MM-dd HH:mm:ss")" name="endTime" placeholder="结束时间" /><br />
+		<input type="submit" value="确认保存" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/ExChange/Index">返回福利管理</Abar>

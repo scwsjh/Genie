@@ -1,0 +1,47 @@
+﻿@model genie_exchange
+@{
+
+}
+<div class="module-title">
+    @Model.name
+</div>
+<div class="content">
+    兑换次数：@string.Format("{0}次/{1}次", ViewBag.OnCount,Model.count)<br />
+    兑换结束：@Convert.ToDateTime(Model.endTime).ToString("yyyy-MM-dd HH:mm:ss")
+</div>
+<div class="clear"></div>
+<div class="name">
+    @string.Format("兑换{0}次所需", ViewBag.Count)
+</div>
+<div class="content">
+    @Html.Raw(ViewBag.Tips)
+</div>
+<div class="name">
+    兑换获得
+</div>
+<div class="content">
+    @Html.Raw(ViewBag.GetTips)
+</div>
+<div class="clear"></div>
+<div class="name">
+    兑换操作
+</div>
+<div class="content">
+    <FormBar sid="@ViewBag.MySid" method="post" action="/Welfare/ExChangeOk" token="true">
+        <input name="ex" type="hidden" value="@Model.exId" />
+        <div class="inArea">
+            兑换数量:
+            <input name="count" class="ipt" type="number" maxlength="2" value="@ViewBag.Count">
+        </div>
+        <div class="common">
+            <PageMsg sid="@ViewBag.MySid"></PageMsg>
+        </div>
+        <div class="inArea">
+            <input type="submit" name="btnPay" class="btn btn-danger" value="立即兑换">
+        </div>
+    </FormBar>
+</div>
+<div class="clear"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Welfare/Index">返回福利社</Abar>
+</div>

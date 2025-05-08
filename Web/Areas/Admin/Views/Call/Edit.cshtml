@@ -1,0 +1,23 @@
+﻿@model genie_call
+@{
+
+}
+<div class="module-title">
+	召唤管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+	<FormBar sid="@ViewBag.MySid" action="/Admin/Call/EditOk" method="post">
+		ID:<input type="number" value="@Model.id" name="id" /><br />
+		名称:<input type="text" value="@Model.name" name="name" /><br />				
+		等级:<input type="number" value="@Model.lev" name="lev" /><br />
+		冷却:<input type="number" value="@Model.cool" name="cool" /><br />
+		图片:<input type="text" value="@Model.img" name="img" /><br />
+		召唤所需:<textarea name="needData" style="height:100px">@Model.needData</textarea><br />
+		召唤获得:<textarea name="getData" style="height:200px">@Model.getData</textarea><br />
+		
+		<input type="submit" value="确认保存" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Call/Index">返回召唤管理</Abar>

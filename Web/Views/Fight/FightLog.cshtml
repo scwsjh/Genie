@@ -1,0 +1,105 @@
+﻿@model genie_fight
+@{
+    FightTemp atk = Newtonsoft.Json.JsonConvert.DeserializeObject<FightTemp>(Model.atk);
+    FightTemp def = Newtonsoft.Json.JsonConvert.DeserializeObject<FightTemp>(Model.def);
+    List<FightState> logs = Newtonsoft.Json.JsonConvert.DeserializeObject<List<FightState>>(Model.log);
+    int type = ViewBag.Type;
+    List<string> OnLog = new List<string>();
+    if (logs.Count > 0)
+    {
+        OnLog = logs[type].data;
+    }
+    int count = 1;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;战况
+</div>
+<div class="module-content">
+    <div>
+        <span>
+            [攻]<Nick style="color:red" sid="@ViewBag.MySid" user-no="@atk.uid"></Nick>
+        </span>
+        <strong>.VS.</strong>
+        @if (Model.type == FightEnum.FightType.Person.ToString())
+        {
+            <span>
+                [守]<Nick style="color:blue" sid="@ViewBag.MySid" user-no="@def.uid"></Nick>
+            </span>
+        }        
+        else
+        {
+            <span>
+                [守]@def.nick
+            </span>
+        }
+    </div>
+    <div>
+        <div>
+            进攻方：@for (int i = 1; i <= atk.genie.Count; i++)
+            {
+                <Abar style="color:red" sid="@ViewBag.MySid" href="/Genie/Info?gu=@atk.genie[i - 1].id">@atk.genie[i - 1].name</Abar>
+                if (i < atk.genie.Count)
+                {
+                    <span>-</span>
+                }
+            }
+        </div>
+        <div>
+            防守方：@for (int i = 1; i <= def.genie.Count; i++)
+            {
+                <Abar style="color:blue" sid="@ViewBag.MySid" href="@string.Format("{0}",Model.type==FightEnum.FightType.Person.ToString()?$"/Genie/Info?gu={def.genie[i - 1].id}":$"/Trial/Detail/{def.genie[i - 1].id}")">@def.genie[i - 1].name</Abar>
+                if (i < def.genie.Count)
+                {
+                    <span>-</span>
+                }
+            }
+        </div>
+    </div>
+    <div>
+        战斗结果：
+        <span style="font-weight:bold">
+            @string.Format("{0}获胜!", atk.uid == Model.winId ? "进攻方" : "防守方")<img src="/res/img/10337.gif" alt=".">
+        </span>
+    </div>
+    @if (!string.IsNullOrEmpty(Model.award) && atk.uid == Model.winId)
+    {
+        List<TowerGet> award = JsonConvert.DeserializeObject<List<TowerGet>>(Model.award);
+        if (award.Count > 0)
+        {
+            <div>
+                战斗奖励:@Html.Raw(GameTool.GetPropTips(award, 0, 1, ViewBag.MySid))
+            </div>
+
+        }
+    }
+</div>
+<div style="height:15px"></div>
+<div class="name">
+    <img src="/res/img/10337.gif" alt=".">
+    @for (int i = 1; i <= logs.Count; i++)
+    {
+        <Acheak sid="@ViewBag.MySid" href="@string.Format("/Fight/FightLog?log={0}&t={1}", Model.id, (i - 1))" on-cheak="@type" on-value="@string.Format("{0}",i-1)">@string.Format("第{0}轮", i) </Acheak>
+        if (i < logs.Count)
+        {
+            <span>|</span>
+        }
+    }
+</div>
+<div class="module-content">
+    <div class="list">
+        @foreach (var item in OnLog)
+        {
+            <div class="row">
+                @Html.Raw(string.Format("回合{0}:{1}", count, FightCompute.LogTo(item)))
+            </div>
+            count++;
+        }
+    </div>
+</div>
+<div style="height:15px"></div>
+<a href="#" onclick="window.location.replace(document.referrer);">返回</a>
+<br />
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;战况
+</div>

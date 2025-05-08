@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">    
+    <meta name="keywords" content="@Html.Raw(ViewBag.keywords)" />
+    <meta name="description" content="@Html.Raw(ViewBag.description)" />
+    <style id="rootFontSize">
+        html {
+            font-size: 100px !important;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/css/index.css" asp-append-version="true" />
+</head>
+<body>
+    <div>
+        <div class="module-title">
+            【页面不存在】
+        </div>
+        <div class="module-content">
+            <p>页面丢失啦！</p>
+            <br />
+            <span><a onclick="javascript:history.go(-1)">返回上一页</a></span>
+            <br />
+            <Abar sid="@ViewBag.MySid" href="/Index">返回首页</Abar>
+        </div>
+    </div>
+    <partial name="~/Views/Shared/footer.cshtml" />
+</body>
+</html>

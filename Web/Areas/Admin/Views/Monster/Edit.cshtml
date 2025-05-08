@@ -1,0 +1,23 @@
+﻿@model genie_monster
+@{
+
+}
+<div class="module-title">
+	怪物管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+	<FormBar sid="@ViewBag.MySid" action="/Admin/Monster/EditOk" method="post">
+		ID:<input type="number" value="@Model.id" name="id" /><br />
+		名称:<input type="text" value="@Model.name" name="name" /><br />
+		等级:<input type="number" value="@Model.lev" name="lev" /><br />
+		星级:<input type="number" value="@Model.start" name="start" /><br />
+		魅力:<input type="number" value="@Model.charm" name="charm" /><br />
+		生命:<input type="number" value="@Model.blood" name="blood" /><br />
+		天赋:<textarea name="skill" style="height:200px">@Model.skill</textarea><br />
+		说明:<input type="text" value="@Model.remark" name="remark" /><br />
+		<input type="submit" value="确认保存" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Monster/Index">返回怪物管理</Abar>

@@ -1,0 +1,73 @@
+﻿@model List<admin_user>
+<style type="text/css">
+
+	table {
+		border-collapse: collapse;
+		margin: 0 auto;
+		text-align: center;
+		margin-top: 20px;
+	}
+
+		table td, table th {
+			border: 1px solid #cad9ea;
+			color: #666;
+			height: 30px;
+		}
+
+		table thead th {
+			background-color: #CCE8EB;
+			width: 100px;
+		}
+
+		table tr:nth-child(odd) {
+			background: #fff;
+		}
+
+		table tr:nth-child(even) {
+			background: #F5FAFA;
+		}
+</style>
+<div>
+	<Abar sid="@ViewBag.MySid" href="/Admin/User/Edit">添加账号</Abar>
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<table width="100%" class="table">
+	<thead>
+		<tr>
+			<th>
+				管理员ID
+			</th>
+			<th>
+				状态
+			</th>
+			<th>
+				添加时间
+			</th>
+			<th>
+				操作
+			</th>
+		</tr>
+
+	</thead>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@item.adminNo
+			</td>
+			<td>
+				@string.Format("{0}", item.status == 1 ? "启用" : "停用")
+			</td>
+			<td>
+				@Convert.ToDateTime(item.addTime).ToString("yyyy-MM-dd")
+			</td>
+			<td style="width:180px">
+				<Abar sid="@ViewBag.MySid" href="/Admin/User/UpStatus?id=@item.adminId">@string.Format("{0}", item.status == 1 ? "停用" : "启用")</Abar>
+				<Abar sid="@ViewBag.MySid" href="/Admin/User/Edit?id=@item.adminId">修改</Abar>
+				@Html.Raw(PageHelper.PageConfirm("删除", "删除账号", "您确认要删除账号吗?", "/Admin/User/DelUser?id=" + item.adminId, ViewBag.MySid))
+			</td>
+		</tr>
+	}
+</table>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Index/Index">返回功能菜单</Abar>

@@ -1,0 +1,32 @@
+﻿@{
+	genie_mall mallInfo = ViewBag.mallInfo;
+	string mallId = mallInfo == null ? "" : mallInfo.mallId;
+	string name = mallInfo == null ? "" : mallInfo.name;
+	string goodsId = mallInfo == null ? "" : mallInfo.goodsId;
+	decimal price = mallInfo == null ? 0 : (decimal)mallInfo.price;
+	string payType = mallInfo == null ? "" : mallInfo.payType;
+	string remark = mallInfo == null ? "" : mallInfo.remark;
+	int sort = mallInfo == null ? 0 : (int)mallInfo.sort;
+	string addTime = mallInfo == null ? "" : mallInfo.addTime.ToString();
+	string endTime = mallInfo == null ? "" : mallInfo.endTime.ToString();
+}
+<div class="module-title">
+	物品管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+	<FormBar sid="@ViewBag.MySid" action="/Admin/Mall/EditMall" method="post">
+		<input hidden value="@mallId" name="id"/><br />
+		物品名称:<input type="text" value="@name" name="name" placeholder="物品名称" /><br />
+		物品ID:<input type="number" value="@goodsId" name="goodsId" placeholder="物品ID" /><br />
+		价格:<input type="number" value="@price" name="price" placeholder="价格" /><br />
+		支付方式:<input type="text" value="@payType" name="payType" placeholder="支付方式" /><br />
+		说明:<input type="text" value="@remark" name="remark" placeholder="说明" /><br />
+		顺序:<input type="number" value="@sort" name="sort" placeholder="顺序" /><br />
+		开始时间:<input type="text" value="@addTime" name="addTime" placeholder="开始时间" /><br />
+		结束时间:<input type="text" value="@endTime" name="endTime" placeholder="结束时间" /><br />
+		<input type="submit" value="确认修改" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Mall/Index">返回商城管理</Abar>

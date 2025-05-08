@@ -1,0 +1,21 @@
+﻿{
+  "WebConfig": {
+    "WebName": "精灵大乐斗",
+    "WebTitle": "精灵大乐斗",
+    "KeyWord": "精灵大乐斗",
+    "Description": "精灵大乐斗",
+    "TimeName": "小Q报时({0})",
+    "webUrl": ""
+  },
+  "SystemConfig": {
+    "SiteUrl": "https://6gqq.com/",
+    "LoginUrl": "https://6gqq.com/login/login.html",
+    "RegUrl": "https://6gqq.com/login/regist.html",
+    "SiteName": "6GQQ家园",
+    "HomeUrl": "https://6gqq.com/home/profile/{0}.html",
+    "MyHomeUrl": "https://6gqq.com/home/my_home.html",
+    "PlateUrl": "https://6gqq.com/channel/1.html",
+    "BbsUrl": "https://6gqq.com/bbs/forum/15.html",
+    "OutUrl": "https://6gqq.com/login/out.html"
+  }
+}

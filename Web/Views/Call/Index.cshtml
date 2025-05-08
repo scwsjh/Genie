@@ -1,0 +1,40 @@
+﻿@model List<CallTemp>
+@{
+    genie_user GenieUser = ViewBag.UserInfo;
+    int count = 1;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;秘境
+</div>
+<div class="module-content">
+    <div class="list">
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                @string.Format("{0}.", count)
+                @if (GenieUser.lev >= item.call.lev)
+                {                    
+                    <Abar sid="@ViewBag.MySid" href="/Call/Info/@item.call.id">@item.call.name</Abar>
+                    @if (item.time >= 1)
+                    {
+                        <span>（冷却:<b style="color:red;font-size:15px">@TimeHelper.TimeDiffBySeconds((int)item.time, "")</b>）</span>
+                    }
+                    else
+                    {
+                        <span>(可召唤)</span>
+                    }                    
+                }
+                else
+                {
+                    <span>@string.Format("{0}({1}级解封)",item.call.name,item.call.lev)</span>
+                }                
+            </div>
+            count++;
+        }
+    </div>
+</div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回主页</Abar>
+<div style="height:15px"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;秘境
+</div>

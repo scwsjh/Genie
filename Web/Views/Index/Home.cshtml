@@ -1,0 +1,163 @@
+﻿@model List<TempResult>
+@{
+    wap_user mainUser = ViewBag.DomainUser;
+    genie_user genie_User = ViewBag.GenieUser;
+    LevData levData = ViewBag.LevInfo;
+    List<genie_thing> ThingData = ViewBag.Thing;
+    int ThingCount = 1;
+    int GenieCount = ViewBag.MyGenieCount;
+    List<genie_user_buff> BuffData = ViewBag.Buff;
+    genie_acc AccInfo = ViewBag.AccInfo;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;玩家资料
+</div>
+<div class="content">
+    <img src="/res/img/sh.gif" alt="." />精灵主人：@mainUser.name &nbsp;&nbsp;[<a href="@string.Format(ViewBag.HomeUrl,mainUser.id,ViewBag.MySid)">Ta的家园</a>]<br />
+    <img src="/image/wu.gif" style="height:16px;width:16px" alt="." />精灵坞：@string.Format("{0}级", genie_User.lev)<br />
+    <img src="/image/10352.gif" alt="." style="height: 16px;" />称号：@levData.name<br />
+    <img src="/res/img/cj.gif" style="height: 16px;" alt=".">Ta的精灵：@string.Format("{0}", GenieCount)<br />    
+    <img src="/res/img/gg2.gif" style="width: 16px;" alt="." />签名：@mainUser.sign<br />
+    操作：<Abar sid="@ViewBag.MySid" href="/Chat/Index?t=1&u=@genie_User.uid">私聊</Abar>.
+    <Abar sid="@ViewBag.MySid" href="/Fight/FightUser?id=@genie_User.uid" token="true">攻击</Abar>(元气-1)
+</div>
+<div class="clear"></div>
+<div class="name">
+    <img alt="1" src="~/res/img/cj2.gif" />Ta的编队
+</div>
+<div class="module-content">    
+    <div class="list">
+        <div class="row">
+            <img alt="1" src="~/res/img/sh.gif" />1.
+            @if (Model.Any(it => it.num == 1))
+            {
+                TempResult info = Model.First(it => it.num == 1);
+                <span>
+                    <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@info.id">@info.name</Abar>@string.Format("({0}级,{1}星)", info.lev, info.start)
+                </span>
+            }
+            else
+            {
+             <span>无</span>
+            }
+        </div>
+
+        <div class="row">
+            <img alt="2" src="~/res/img/sh.gif" />2.
+                @if (Model.Any(it => it.num == 2))
+                {
+                    TempResult info = Model.First(it => it.num == 2);
+                    <span>
+                        <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@info.id">@info.name</Abar>@string.Format("({0}级,{1}星)", info.lev, info.start)                    
+                    </span>
+                }
+                else
+                {
+                <span>无</span>
+                }           
+        </div>
+        <div class="row">
+            <img alt="3" src="~/res/img/sh.gif" />3.           
+                @if (Model.Any(it => it.num == 3))
+                {
+                    TempResult info = Model.First(it => it.num == 3);
+                    <span>
+                        <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@info.id">@info.name</Abar>@string.Format("({0}级,{1}星)", info.lev, info.start)                      
+                    </span>
+                }
+                else
+                {
+                <span>无</span>
+                }            
+        </div>
+        <div class="row">
+            <img alt="4" src="~/res/img/sh.gif" />4.
+                @if (Model.Any(it => it.num == 4))
+                {
+                    TempResult info = Model.First(it => it.num == 4);
+                    <span>
+                        <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@info.id">@info.name</Abar>@string.Format("({0}级,{1}星)", info.lev, info.start)                        
+                    </span>
+                }
+                else
+                {
+                <span>无</span>
+                }            
+        </div>
+        <div class="row">
+            <img alt="5" src="~/res/img/sh.gif" />5.
+                @if (Model.Any(it => it.num == 5))
+                {
+                    TempResult info = Model.First(it => it.num == 5);
+                    <span>
+                        <Abar sid="@ViewBag.MySid" href="/Genie/Info?gu=@info.id">@info.name</Abar>@string.Format("({0}级,{1}星)", info.lev, info.start)                       
+                    </span>
+                }
+                else
+                {
+                <span>无</span>
+                }          
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<div class="name">
+    <img src="/image/10339.gif" alt="." />Ta的装扮 
+</div>
+<div class="content">
+    <div class="kx_list">
+        @foreach (var item in BuffData)
+        {
+            <div class="rows">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td valign="top" align="center" style="width:-50px;">
+                                <div class="avatar">
+                                    <p style=" "><img src="@item.img" width="50" alt="."></p>
+                                </div>
+                            </td>
+                            <td class="rg">
+                                <Abar sid="@ViewBag.MySid" href="/Goods/Info/@item.goodsId">@item.name</Abar><span style="margin-left:10px;font-size:14px;float:right">@string.Format("(剩余：{0}次)", item.count)</span> <br />
+                                <em>@item.tip</em>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+        @if (BuffData.Count == 0)
+        {
+            <div>暂无装扮.</div>
+        }
+
+    </div>
+</div>
+<div class="clear"></div>
+<div class="name">
+    <img src="/res/img/dt.gif" alt=".">Ta的动态  <img src="/res/img/ck2.gif" alt="."><Abar sid="@ViewBag.MySid" href="/Thing/Index?u=@mainUser.id">查看更多</Abar>
+</div>
+<div class="module-content">
+    @if (ThingData.Count == 0)
+    {
+        <span>暂无动态.</span>
+    }
+    <div class="list">
+        @foreach (var item in ThingData)
+        {
+            <div class="row">
+                @string.Format("{0}.({1})", ThingCount, TimeHelper.TimeDiff((DateTime)item.addTime, DateTime.Now))
+                <Nick user-no="@(int)item.uid" sid="@ViewBag.MySid"></Nick>
+                @Html.Raw(Service.Core.ConvertContent.ConvertHtml(item.sign, ViewBag.MySid))
+            </div>
+            ThingCount++;
+        }
+    </div>
+</div>
+<div class="clear"></div>
+<a href="#" onclick="history.back();">返回</a>
+<br />
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;玩家资料
+</div>

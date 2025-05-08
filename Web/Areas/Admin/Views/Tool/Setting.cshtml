@@ -1,0 +1,146 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="">
+    <div class="row">
+        <div>⭐奖励类物品配置：</div>
+        <strong> Json配置结构：</strong>
+        <p style="background-color:black;color:white">
+            [
+            {
+            "code": "Goods",
+            "name": "元气卡",
+            "parameter": "10001",
+            "count": 1
+            }
+            ]
+        </p>
+        
+        💡Code:为配置类型<br />
+        💡Name:显示的名字<br />
+        💡Parameter:参数ID<br />
+        💡Count:奖励物品的数量<br />
+    </div>    
+    <hr />
+    <div class="row">
+        <div>⭐扣除（所需类）物品配置：</div>
+        <strong> Json配置结构：</strong>
+        <p style="background-color:black;color:white">
+            [
+            {
+            "code": "lev",
+            "name": "等级",
+            "parameter": "",
+            "count": 1,
+            "retCount": 0,
+            "isOp": 0
+            }
+            ]
+        </p>
+        💡Code:为配置类型<br />
+        💡Name:显示的名字<br />
+        💡Parameter:参数ID<br />
+        💡Count:扣除物品的数量<br />
+        💡RetCount:预留，暂未启用<br />
+        💡Isop:是否执行累出，若设置为0不执行扣除，只执行扣除前的验证。<br />
+    </div>
+    <hr />
+    <div class="row">
+        <div>⭐礼包类（含掉落）物品配置：</div>
+        <strong> Json配置结构：</strong>
+        <p style="background-color:black;color:white">
+            {
+            "name": "神秘宝藏",
+            "chance": 100,
+            "minCount": 1,
+            "maxCount": 1,
+            "items": [
+            {
+            "type": "Default",
+            "name": "花园经验",
+            "code": "Site",
+            "parameter": "GardenExp",
+            "random": 100,
+            "minCount": 50,
+            "maxCount": 200,
+            "onCount": 0,
+            "must": 0
+            },
+            {
+            "type": "Default",
+            "name": "水晶之恋种子",
+            "code": "Site",
+            "parameter": "GardenSend#57",
+            "random": 100,
+            "minCount": 1,
+            "maxCount": 3,
+            "onCount": 0,
+            "must": 0
+            }
+            ]
+            }
+
+        </p>
+        💡Name:本包名称，当是礼包类配置时，必填<br />
+        💡Chance:本次掉落物品概率<br />
+        💡MinCount:最少掉落N种物品<br />
+        💡MaxCount:最大掉落N中物品<br />
+        💡Items:物品内容<br />
+        ----type:默认Default,预留配置<br />
+        ----name:物品名称<br />
+        ----code:物品类型<br />
+        ----parameter:参数<br />
+        ----random:权重，越大掉落的几率越高（数值：0-100）<br />
+        ----mincount:最小N个<br />
+        ----maxcount:最大N个<br />
+        ----oncount:预留配置，填0<br />
+        ----must:预留配置 ，填 0<br />
+    </div>
+    <hr />
+    <div class="row">
+        <div>⭐关于Code参数配置说明：</div>
+        <div>
+            <strong>1.	游戏内物品配置</strong><br />
+            Code可选一下内容配置(注意大小写)：<br />
+            💡Goods:游戏物品<br />
+            💡Genie：精灵<br />
+            💡copper：游戏内货物，暂未启用<br />
+            💡exploit:功勋<br />
+            💡lev:等级<br />
+            💡Exp:经验<br />
+            <span style="color:red">
+                *当选用以上Code时，Parameter参数填写对应的道具ID，等级货币类无需填写。
+            </span>
+        </div>
+        <div>
+            <strong>2.	社区类物品配置</strong><br />
+            当配置社区类物品，Code必须填写为：“Site” Parameter 参数要求为：类型#参数ID<br />
+            *社区物品类型如下：<br />
+            💡Flower,//花园花朵<br />
+            💡GardenExp,//花园经验<br />
+            💡GardenProp,//花园物品<br />
+            💡GardenSend,//花园种子<br />
+            💡Currency,//货币<br />
+            💡FarmExp,//农场经验<br />
+            💡FarmSeed,//农场种子<br />
+            💡FarmMuck,//农场肥料<br />
+            💡FarmTrap,//农场陷阱<br />
+            💡FarmGoods,//农场作物<br />
+            💡RanchExp,//牧场经验<br />
+            💡RanchMuck,//牧场饲料<br />
+            💡RanchSeed,//牧场种子<br />
+            💡RanchGoods,//牧场作物<br />
+            💡BbsExp,//论坛经验<br />
+            <span style="color:red">
+                特殊：<br />
+                当类型为Currency时，结合各自社区的wap_money表ID类配置对应的G币或元宝等，以6g为例，配置金币的参数为：Currency#0
+            </span>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Tool/Index">返回工具</Abar>
+<br />
+<Abar sid="@ViewBag.MySid" href="/Admin/Index/Index">返回功能菜单</Abar>

@@ -1,0 +1,50 @@
+﻿@model List<ConsumeTemp>
+@{
+    int count = 1;
+    int type = ViewBag.Type;
+    int TimeNo = ViewBag.TimeNo;
+    List<wap_money> MoneyData = ViewBag.MoneyData;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;排行榜
+</div>
+<div class="module-content">
+    <div>
+        榜单：
+        <Abar sid="@ViewBag.MySid" href="/Index/Rank">等级</Abar>|
+        <Abar sid="@ViewBag.MySid" href="/Index/Rank?t=1">功勋</Abar>|
+        @for (int i = 0; i < MoneyData.Count; i++)
+        {
+            <Acheak sid="@ViewBag.MySid" href="/Index/Consume?t=@MoneyData[i].id" on-cheak="@MoneyData[i].id" on-value="@type">@MoneyData[i].name</Acheak>
+            if ((i + 1) < MoneyData.Count)
+            {
+                <span>|</span>
+            }
+        }        
+    </div>
+    <div>
+        时间:<Acheak sid="@ViewBag.MySid" href="/Index/Consume?t=@type" on-cheak="0" on-value="@TimeNo">当天</Acheak>|
+        <Acheak sid="@ViewBag.MySid" href="/Index/Consume?t=@type&c=1" on-cheak="1" on-value="@TimeNo">总榜</Acheak>
+    </div>
+    <div class="list">
+        @foreach (var item in Model)
+        {
+        <div class="row">
+            @Html.Raw(((ViewBag.PageIndex - 1) * ViewBag.PageSize + count).ToString() + ".")
+            <Nick sid="@ViewBag.MySid" user-no="@item.userId"></Nick>@string.Format("(消费：{0})", item.amount)
+        </div>
+        count++;
+        }
+        @if (Model.Count == 0)
+        {
+        <span>暂无上榜.</span>    
+        }
+    </div>
+</div>
+<PageBar page-class="content" page-size="@ViewBag.PageSize" page-Total="@ViewBag.Total" page-Url="@RequestHelper.GetRequestUrl(ViewContext.HttpContext.Request)"></PageBar>
+
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回主页</Abar>
+<div style="height:15px"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;排行榜
+</div>

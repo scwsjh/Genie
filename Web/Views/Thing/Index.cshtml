@@ -1,0 +1,30 @@
+﻿@model List<genie_thing>
+@{
+    int count = 1;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;动态
+</div>
+<div class="module-content">
+    @if (Model.Count == 0)
+    {
+        <span>暂无动态.</span>
+    }
+    <div class="list">
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                @Html.Raw(((ViewBag.PageIndex - 1) * ViewBag.PageSize + count).ToString() + ".")
+                @string.Format("({0})", TimeHelper.TimeDiff((DateTime)item.addTime, DateTime.Now))
+                <Nick user-no="@(int)item.uid" sid="@ViewBag.MySid"></Nick>
+                @Html.Raw(Service.Core.ConvertContent.ConvertHtml(item.sign, ViewBag.MySid))
+            </div>
+            count++;
+        }
+    </div>
+</div>
+<PageBar page-class="content" page-size="@ViewBag.PageSize" page-Total="@ViewBag.Total" page-Url="@RequestHelper.GetRequestUrl(ViewContext.HttpContext.Request)"></PageBar>
+<div style="height:30px"></div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<br />
+<Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;动态

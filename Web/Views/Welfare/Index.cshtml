@@ -1,0 +1,28 @@
+﻿@model List<genie_exchange>
+@{
+    int count = 1;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;福利社
+</div>
+<div class="content">
+    <div class="list">
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                @string.Format("{0}.",count)
+                <Abar sid="@ViewBag.MySid" href="/Welfare/Info/@item.exId">@item.name</Abar>
+            </div>
+            count++;
+        }
+        @if (Model.Count == 0)
+        {
+            <span>暂无福利.</span>
+        }
+    </div>    
+</div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<div style="height:15px"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;福利社
+</div>

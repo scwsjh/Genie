@@ -1,0 +1,19 @@
+﻿@model genie_dic
+@{
+
+}
+<div class="module-title">
+	配置管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+	<FormBar sid="@ViewBag.MySid" action="/Admin/Dic/EditOk" method="post">
+		<input hidden value="@Model.code" name="code" />		
+		参数配置:<textarea name="sign" style="height:100px">@Model.sign</textarea><br />
+		说明:<input type="text" value="@Model.remark" name="remark" /><br />
+
+		<input type="submit" value="确认保存" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Dic/Index">返回配置管理</Abar>

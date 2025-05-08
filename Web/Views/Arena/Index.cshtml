@@ -1,0 +1,56 @@
+﻿@model genie_arena
+@{
+    List<genie_thing> things = ViewBag.Things;
+    List<TowerGet> award = ViewBag.Award;
+    genie_arena_user userInfo = ViewBag.ArenaUser;
+    int GoodsCount = ViewBag.GoodsCount;
+    int ThingCount = 1;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;擂台赛
+</div>
+<div class="content">
+    <div>
+        擂台奖池：@Html.Raw(GameTool.GetPropTips(award))
+    </div>
+    <div>
+        当前擂主：@if (Model.userId != 0)
+        {
+            <Nick sid="@ViewBag.MySid" user-no="@(int)Model.userId"></Nick>
+        }
+        else
+        {
+            <span>暂无.</span>
+        }
+    </div>
+    <div>
+        <Abar sid="@ViewBag.MySid" href="/Arena/ArenaOk" token="true">挑战Ta</Abar>&nbsp;(挑战令-1)<br />
+        <span>(每天免费1次)</span><br />
+        <span>拥有挑战令：@GoodsCount</span>
+    </div>
+</div>
+<div class="name">
+    擂台动态
+</div>
+<div class="module-content">
+    @if (things.Count == 0)
+    {
+        <span>暂无动态.</span>
+    }
+    <div class="list">
+        @foreach (var item in things)
+        {
+            <div class="row">
+                @string.Format("{0}.({1})", ThingCount, TimeHelper.TimeDiff((DateTime)item.addTime, DateTime.Now))
+                <Nick user-no="@(int)item.uid" sid="@ViewBag.MySid"></Nick>
+                @Html.Raw(Service.Core.ConvertContent.ConvertHtml(item.sign, ViewBag.MySid))
+            </div>
+            ThingCount++;
+        }
+    </div>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;擂台赛
+</div>

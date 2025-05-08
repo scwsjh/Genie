@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    GameObsInfo obsInfo = ViewBag.ObsInfo;
+}
+<div class="content">
+    @if (obsInfo.lookMenu == 1)
+    {
+        <div class="common">
+            <Abar sid="@ViewBag.MySid" href="/User/Index/Index">状态</Abar>. <Abar sid="@ViewBag.MySid" href="/Bag/Index/Index">物品</Abar>. <Abar sid="@ViewBag.MySid" href="/Act/Daily/Index">日常</Abar>. <Abar sid="@ViewBag.MySid" href="/Chat/Index/Index">聊天</Abar>
+        </div>
+        <div class="common">
+            <Abar sid="@ViewBag.MySid" href="/Friend/Index/Index">好友</Abar>. <Abar sid="@ViewBag.MySid" href="/Life/Life/Index">命格</Abar>. <Abar sid="@ViewBag.MySid" href="/Pet/Index/Index">宠物</Abar>. <Abar sid="@ViewBag.MySid" href="/Team/Index/Index">队伍</Abar>
+        </div>
+        <div class="common">
+            <Abar sid="@ViewBag.MySid" href="/Mall/Index/Index">商城</Abar>. <Abar sid="@ViewBag.MySid" href="/Legion/Legion/MyLegion">军团</Abar>. <Abar sid="@ViewBag.MySid" href="/Garden/Index/Index">花园</Abar>. <Abar sid="@ViewBag.MySid" href="/Attend/Index/Index">随从</Abar>
+        </div>
+        <div class="common">
+            <Abar sid="@ViewBag.MySid" href="/Act/Kill/Index">天榜</Abar>. <Abar sid="@ViewBag.MySid" href="/Privilege/Index/Index">特权</Abar>. <Abar sid="@ViewBag.MySid" href="/Bus/Proffer/Index">神殿</Abar>. <Abar sid="@ViewBag.MySid" href="/Business/Market/Act">活动</Abar>
+        </div>
+        @* <div class="common">
+            <Abar sid="@ViewBag.MySid" href="/Act/Kill/Index">天榜</Abar>. <Abar sid="@ViewBag.MySid" href="/Act/Trials/Index">试炼</Abar>. <Abar sid="@ViewBag.MySid" href="/Constell/Index/Index">星宿</Abar>. <Abar sid="@ViewBag.MySid" href="/Business/Market/Act">活动</Abar>
+        </div> *@
+        <div class="common">
+            @* <Abar sid="@ViewBag.MySid" href="/Privilege/Index/Index">特权</Abar>.  *@@* <Abar sid="@ViewBag.MySid" href="/Partner/Index/Partner">伙伴</Abar>. *@ @* <Abar sid="@ViewBag.MySid" href="/Bus/Proffer/Index">神殿</Abar>. *@
+            <Abar sid="@ViewBag.MySid" href="/Business/Indiana/Index">夺宝</Abar>. <Abar sid="@ViewBag.MySid" href="/Act/Arena/Index">擂台</Abar>. <Abar sid="@ViewBag.MySid" href="/Rank/RankEqu/Index">兵器谱</Abar>.  <Abar sid="@ViewBag.MySid" href="/Rank/Index/Index">排行</Abar>
+        </div>
+    }
+    else
+    {
+        <div class="common">
+            <Abar sid="@ViewBag.MySid" href="/User/Index/Index">状态</Abar>. <Abar sid="@ViewBag.MySid" href="/Bag/Index/Index">物品</Abar>. <Abar sid="@ViewBag.MySid" href="/Act/Daily/Index">日常</Abar>. <Abar sid="@ViewBag.MySid" href="/Chat/Index/Index">聊天</Abar>
+        </div>
+    }
+</div>

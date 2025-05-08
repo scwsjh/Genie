@@ -1,0 +1,64 @@
+﻿@model List<genie_dic>
+@{
+
+}
+<style type="text/css">
+	table {
+		border-collapse: collapse;
+		margin: 0 auto;
+		text-align: center;
+		margin-top: 20px;
+	}
+
+		table td, table th {
+			border: 1px solid #cad9ea;
+			color: #666;
+			height: 30px;
+		}
+
+		table thead th {
+			background-color: #CCE8EB;
+			width: 100px;
+		}
+
+		table tr:nth-child(odd) {
+			background: #fff;
+		}
+
+		table tr:nth-child(even) {
+			background: #F5FAFA;
+		}
+</style>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<table width="100%" class="table">
+	<thead>
+		<tr>
+			<th>
+				Code
+			</th>
+			<th>
+				说明
+			</th>
+			<th>
+				操作
+			</th>
+		</tr>
+
+	</thead>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td style="width:200px">
+				@item.code
+			</td>
+			<td>
+				@item.remark
+			</td>			
+			<td style="width:180px">
+				<Abar sid="@ViewBag.MySid" href="/Admin/Dic/Edit?id=@item.code">修改</Abar>
+			</td>
+		</tr>
+	}
+</table>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Index/Index">返回功能菜单</Abar>

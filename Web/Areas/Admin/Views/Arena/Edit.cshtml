@@ -1,0 +1,19 @@
+﻿@model genie_arena_award
+@{
+
+}
+<div class="module-title">
+	擂台奖励
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+	<FormBar sid="@ViewBag.MySid" action="/Admin/Arena/EditOk" method="post">		
+		ID:<input type="number" value="@Model.id" name="id" placeholder="编号" />(注意编号一定为数字,且不能重复，次数越高建议ID值越大)<br />
+		次数:<input type="number" value="@Model.count" name="count" placeholder="守擂次数" /><br />
+		奖励:<textarea name="award" style="height:200px">@Model.award</textarea><br />		
+		发放:<input type="number" value="@Model.isPut" name="isPut" placeholder="守擂次数" />(下擂台是否发放;0:不发放，1发放)<br />
+		<input type="submit" value="确认保存" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Arena/Index">返回擂台管理</Abar>

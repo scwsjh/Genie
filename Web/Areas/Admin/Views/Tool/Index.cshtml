@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="common">
+    <div class="container mx-auto p-8">
+        <h4 class="text-3xl font-bold text-center mb-8">JSON配置工具</h4>
+        ⭐<Abar sid="@ViewBag.MySid" href="/Admin/Tool/Setting">配置说明</Abar>
+        <div class="bg-white p-6 rounded shadow-md">
+            <label for="jsonInput" class="block text-sm font-medium text-gray-700 mb-2">输入Json数据体:</label>
+            <textarea id="jsonInput" class="block w-full p-3 border border-gray-300 rounded mb-4" rows="10"></textarea>
+            <div class="flex space-x-4 mb-4">
+                <button id="formatButton"  >
+                    格式化
+                </button>
+                <button id="compressButton" >
+                    压缩
+                </button>
+                <button id="copyButton" >
+                   复制
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const jsonInput = document.getElementById('jsonInput');
+    const compressButton = document.getElementById('compressButton');
+    const formatButton = document.getElementById('formatButton');
+    const output = document.getElementById('output');
+
+    compressButton.addEventListener('click', () => {
+        try {
+            const jsonData = JSON.parse(jsonInput.value);
+            const compressed = JSON.stringify(jsonData);
+            jsonInput.value = compressed;
+        } catch (error) {
+            alert('格式不正确!');            
+        }
+    });
+
+    formatButton.addEventListener('click', () => {
+        try {
+            const jsonData = JSON.parse(jsonInput.value);
+            const formatted = JSON.stringify(jsonData, null, 2);
+            jsonInput.value = formatted;
+        } catch (error) {
+            alert('格式不正确!');            
+        }
+    });
+
+    copyButton.addEventListener('click', () => {
+        jsonInput.select();
+        document.execCommand('copy');
+        alert('复制成功!');
+    });
+</script>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Index/Index">返回功能菜单</Abar>

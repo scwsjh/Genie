@@ -1,0 +1,74 @@
+﻿@model List<genie_mall>
+<style type="text/css">
+	table {
+		border-collapse: collapse;
+		margin: 0 auto;
+		text-align: center;
+		margin-top: 20px;
+	}
+
+		table td, table th {
+			border: 1px solid #cad9ea;
+			color: #666;
+			height: 30px;
+		}
+
+		table thead th {
+			background-color: #CCE8EB;
+			width: 100px;
+		}
+
+		table tr:nth-child(odd) {
+			background: #fff;
+		}
+
+		table tr:nth-child(even) {
+			background: #F5FAFA;
+		}
+</style>
+<div>
+	<Abar sid="@ViewBag.MySid" href="/Admin/Mall/Edit">上架商城</Abar>
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<table width="100%" class="table">
+	<thead>
+		<tr>
+			<th>
+				物品名称
+			</th>
+			<th>
+				类型
+			</th>
+			<th>
+				价格
+			</th>
+			<th>
+				操作
+			</th>
+		</tr>
+
+	</thead>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td style="width:200px">
+				@item.name
+			</td>
+			<td>
+				@if (item.type == "Goods")
+				{
+					<span>道具</span>
+				}
+			</td>
+			<td>
+				@item.price
+			</td>
+			<td style="width:180px">
+				<Abar sid="@ViewBag.MySid" href="/Admin/Mall/Edit?id=@item.mallId">修改</Abar>.
+				<Abar sid="@ViewBag.MySid" href="/Admin/Mall/Delete?id=@item.mallId">删除</Abar>
+			</td>
+		</tr>
+	}
+</table>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Index/Index">返回功能菜单</Abar>

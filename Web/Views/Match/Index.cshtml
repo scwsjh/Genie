@@ -1,0 +1,50 @@
+﻿@model genie_match
+@{
+    genie_user GenieUser = ViewBag.GenieUser;
+    genie_user_vigor VigorInfo = ViewBag.VigorInfo;
+    List<genie_match> Users = ViewBag.MatchUser;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;精灵争霸
+</div>
+<div class="module-content">
+    争霸赛|<Abar sid="@ViewBag.MySid" href="/Team/Index">我的编队</Abar><br />
+    <img src="/res/img/sh.gif" alt="." />精灵主人：@ViewBag.MyNick <br />
+    <img src="/res/img/lv.gif" style="width: 16px;" alt="." />我的元气：@VigorInfo.vigor<br />
+    <img src="/res/img/10134.gif" style="width: 16px;" alt="." />争霸排名：@string.Format("第{0}名", Model.id)
+</div>
+<div class="name">
+    <img src="/res/img/10163.gif" alt=".">我要争霸  <img src="/res/img/sx.gif" style="width: 19px;" alt="."><Abar sid="@ViewBag.MySid" href="/Match/Index">刷新</Abar>
+</div>
+<div class="module-content">
+    <div class="list">
+        @foreach (var item in Users)
+        {
+            <div class="row">
+                @string.Format("{0}.", item.id)
+                <Nick sid="@ViewBag.MySid" user-no="@(int)item.uid"></Nick>
+                @if (ViewBag.Uid != item.uid)
+                {
+                    <span>[<Abar sid="@ViewBag.MySid" href="/Match/MatchOk/@item.id" token-sign="@ViewBag.PageToken">挑战(元气-1)</Abar>]</span>
+                }
+                else
+                {
+                    <span>(⚑我)</span>
+                }
+            </div>
+
+        }
+    </div>
+</div>
+<div class="clear"></div>
+<div class="name">
+    <img src="/res/img/10191.gif" alt=".">功能辅助
+</div>
+<div class="module-content" style="padding-top:5px;">
+    <img src="/res/img/10310.gif" alt="."><Abar sid="@ViewBag.MySid" href="/Match/GetMatchAward" token-sign="@ViewBag.PageToken">领奖台</Abar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">主页</Abar>&gt;精灵争霸
+</div>

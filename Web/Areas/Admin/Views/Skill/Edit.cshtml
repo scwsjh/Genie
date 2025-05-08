@@ -1,0 +1,25 @@
+﻿@model genie_skill
+@{
+
+}
+<div class="module-title">
+    技能管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+    <FormBar sid="@ViewBag.MySid" action="/Admin/Skill/EditOk" method="post">
+        ID:<input type="number" value="@Model.skId" name="skId" /><br />
+        名称:<input type="text" value="@Model.name" name="name" /><br />
+        类型:
+        @Html.DropDownListFor(model => model.type, new SelectList(new[]
+                 {
+        new { Value = "Tel", Text = "天赋" },
+        new { Value = "Skill", Text = "技能" }
+        }, "Value", "Text"))
+        <br />
+        属性:<textarea name="attr" style="height:200px">@Model.attr</textarea><br />
+        <input type="submit" value="确认保存" class="btn btn-danger">
+    </FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Skill/Index">返回技能管理</Abar>

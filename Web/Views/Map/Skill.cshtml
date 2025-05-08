@@ -1,0 +1,16 @@
+﻿@model genie_genie
+@{
+    SkillItem skill = ViewBag.Skill;
+}
+<div class="module-title">
+    天赋/技能
+</div>
+<div class="content">
+    天赋：@skill.skill.name<br />
+    说明：@skill.skill.tip
+</div>
+<div style="height:15px"></div>
+<a href="#" onclick="window.location.replace(document.referrer);">返回</a>
+<br />
+<Abar sid="@ViewBag.MySid" href="/Map/Index">返回图鉴</Abar>
+<div style="height:15px"></div>

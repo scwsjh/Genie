@@ -1,0 +1,23 @@
+﻿@model genie_trial
+@{
+
+}
+<div class="module-title">
+	试炼管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+	<FormBar sid="@ViewBag.MySid" action="/Admin/Trial/EditOk" method="post">
+		ID:<input type="number" value="@Model.id" name="id" /><br />
+		名称:<input type="text" value="@Model.name" name="name" /><br />
+		等级:<input type="number" value="@Model.lev" name="lev" /><br />
+		怪物:<input type="text" value="@Model.team" name="team" /><br />
+		经验:<input type="number" value="@Model.exp" name="exp" /><br />
+		所需元气:<input type="number" value="@Model.vigor" name="vigor" /><br />		
+		奖励:<textarea name="award" style="height:200px">@Model.award</textarea><br />
+		状态:<input type="number" value="@Model.status" name="status" />(0:禁用  1:启用)<br />
+		<input type="submit" value="确认保存" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Trial/Index">返回试炼管理</Abar>

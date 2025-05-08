@@ -1,0 +1,80 @@
+﻿@model List<genie_notice>
+@{
+	int count = 1;
+}
+<style type="text/css">
+	table {
+		border-collapse: collapse;
+		margin: 0 auto;
+		text-align: center;
+		margin-top: 20px;
+	}
+
+		table td, table th {
+			border: 1px solid #cad9ea;
+			color: #666;
+			height: 30px;
+		}
+
+		table thead th {
+			background-color: #CCE8EB;
+			width: 100px;
+		}
+
+		table tr:nth-child(odd) {
+			background: #fff;
+		}
+
+		table tr:nth-child(even) {
+			background: #F5FAFA;
+		}
+</style>
+<div>
+	<Abar sid="@ViewBag.MySid" href="/Admin/Notice/Edit">添加公告</Abar>
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<table width="100%" class="table">
+	<thead>
+		<tr>
+			<th>
+				编号
+			</th>
+			<th>
+				公告标题
+			</th>
+			<th>
+				发布时间
+			</th>
+			<th>
+				截止时间
+			</th>
+			<th>
+				操作
+			</th>
+		</tr>
+
+	</thead>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td style="width:200px">
+				@count
+			</td>
+			<td>
+				@item.title
+			</td>
+			<td>
+				@Convert.ToDateTime(item.addTime).ToString("yyyy-MM-dd HH:mm:ss")
+			</td>
+			<td>
+				@Convert.ToDateTime(item.endTime).ToString("yyyy-MM-dd HH:mm:ss")
+			</td>
+			<td style="width:180px">
+				<Abar sid="@ViewBag.MySid" href="/Admin/Notice/Edit?id=@item.noticeId">修改</Abar>.
+				<Abar sid="@ViewBag.MySid" href="/Admin/Notice/Delete?id=@item.noticeId">删除</Abar>
+			</td>
+		</tr>
+	}
+</table>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Index/Index">返回功能菜单</Abar>

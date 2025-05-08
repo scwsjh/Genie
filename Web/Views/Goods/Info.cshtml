@@ -1,0 +1,86 @@
+﻿@model genie_goods
+@{
+    int count = ViewBag.MyCount;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;物品资料
+</div>
+<div class="module-content">
+    名称：@Model.goodsName<br />
+    等级：@string.Format("{0}级", Model.lev)<br />
+    说明：@Model.tips<br />
+    途径：@Model.local<br />
+    @if (count > 0)
+    {
+        <span>拥有：@count</span>
+    }
+</div>
+@if (count > 0)
+{
+    <div class="module-content">
+        @if (Model.code == GoodsEnum.Code.Vigor.ToString())
+        {
+            <div class="common">
+                <div>
+                    ---◈使用操作◈---
+                </div>
+                <FormBar sid="@ViewBag.MySid" method="post" action="/Goods/UseVigor" token-sign="@ViewBag.PageToken">
+                    <input name="g" type="hidden" value="@Model.goodsId" />
+                    数量:<input name="count" type="number" style="width:80px" value="1" /><br />
+                    <input type="submit" class="btn btn-danger" value="使用" />
+                </FormBar>
+            </div>
+        }
+        else if (Model.code == Service.Core.GoodsEnum.Code.Pack.ToString())
+        {
+            <div class="common">
+                <div>
+                    ---◈打开操作◈---
+                </div>
+
+                <FormBar sid="@ViewBag.MySid" method="post" action="/Goods/UsePack" token-sign="@ViewBag.PageToken">
+                    <input name="g" type="hidden" value="@Model.goodsId" />
+                    数量:<input name="count" type="number" style="width:80px" value="1" /><br />
+                    <input type="submit" class="btn btn-danger" value="打开" />
+                </FormBar>
+            </div>
+        }
+        else if (Model.code == Service.Core.GoodsEnum.Code.State.ToString())
+        {
+            <div class="common">
+                <div>
+                    ---◈打开操作◈---
+                </div>
+
+                <FormBar sid="@ViewBag.MySid" method="post" action="/Goods/UseState" token-sign="@ViewBag.PageToken">
+                    <input name="g" type="hidden" value="@Model.goodsId" />
+                    数量:<input name="count" type="number" style="width:80px" value="1" /><br />
+                    <input type="submit" class="btn btn-danger" value="打开" />
+                </FormBar>
+            </div>
+        }
+        else if (Model.code == Service.Core.GoodsEnum.Code.Exp.ToString())
+        {
+            <div class="common">
+                <div>
+                    ---◈打开操作◈---
+                </div>
+
+                <FormBar sid="@ViewBag.MySid" method="post" action="/Goods/UseExp" token-sign="@ViewBag.PageToken">
+                    <input name="g" type="hidden" value="@Model.goodsId" />
+                    数量:<input name="count" type="number" style="width:80px" value="1" /><br />
+                    <input type="submit" class="btn btn-danger" value="打开" />
+                </FormBar>
+            </div>
+        }
+    </div>
+}
+<div class="clear"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Goods/Index">返回储物箱</Abar><br />
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">返回游戏主页</Abar>
+</div>
+<div style="height:15px"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;物品资料
+</div>

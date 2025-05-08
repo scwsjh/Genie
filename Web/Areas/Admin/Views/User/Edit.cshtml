@@ -1,0 +1,19 @@
+﻿@model admin_user
+
+<div class="module-title">
+	用户管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">		
+	<FormBar sid="@ViewBag.MySid" action="/Admin/User/EditUser" method="post">	
+		<input hidden value="@Model.adminId" name="adminId" />
+		管理员ID:<input type="number" value="@Model.adminNo" name="no" placeholder="管理员ID" /><br />
+		账号状态:<select name="status">
+			<option value="1">启用</option>
+			<option value="0">停用</option>
+		</select><br />
+		<input type="submit" value="确认修改" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/User/Index">返回账号管理</Abar>

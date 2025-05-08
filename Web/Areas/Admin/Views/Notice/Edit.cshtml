@@ -1,0 +1,20 @@
+﻿@model genie_notice
+@{
+
+}
+<div class="module-title">
+	公告管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+	<FormBar sid="@ViewBag.MySid" action="/Admin/Notice/EditOk" method="post">
+		<input hidden value="@Model.noticeId" name="noticeId" /><br />
+		公告标题:<input type="text" value="@Model.title" name="title" placeholder="公告标题" /><br />		
+		公告内容:<textarea name="sign" style="height:200px" >@Model.sign</textarea><br />
+		开始时间:<input type="text" value="@Convert.ToDateTime( Model.addTime).ToString("yyyy-MM-dd HH:mm:ss")" name="addTime" placeholder="开始时间" /><br />
+		结束时间:<input type="text" value="@Convert.ToDateTime( Model.endTime).ToString("yyyy-MM-dd HH:mm:ss")" name="endTime" placeholder="结束时间" /><br />
+		<input type="submit" value="确认保存" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Notice/Index">返回公告管理</Abar>

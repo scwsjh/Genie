@@ -1,0 +1,31 @@
+﻿@model List<genie_mall>
+@{
+    int count = 1;
+}
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;商店
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+    <div class="list">
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <FormBar sid="@ViewBag.MySid" method="post" action="/Store/Buy" token-sign="@ViewBag.PageToken">
+                    <input type="hidden" name="g" value="@item.mallId" />
+                @string.Format("{0}.", count)
+                @Html.Raw(GameTool.GetGamePropHtml(item.name, item.type, item.goodsId, ViewBag.MySid))<br />
+                价格：@string.Format("{0}{1}",item.price,await GameTool.GetCurrencyName(item.payType) )<br />
+                数量：<input type="number" value="1" name="count"  style="width:50px" />个<br />
+                <input type="submit" value="购买" />
+                </FormBar>
+            </div>
+            count++;
+        }
+    </div>
+</div>
+<Abar sid="@ViewBag.MySid" href="/Index/Index">返回精灵主页</Abar>
+<div style="height:15px"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;商店
+</div>

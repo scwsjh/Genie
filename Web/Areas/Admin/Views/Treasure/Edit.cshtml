@@ -1,0 +1,22 @@
+﻿@model genie_treasure
+@{
+
+}
+<div class="module-title">
+	藏宝阁管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+	<FormBar sid="@ViewBag.MySid" action="/Admin/Treasure/EditOk" method="post">
+		ID:<input type="number" value="@Model.id" name="id" /><br />
+		名称:<input type="text" value="@Model.name" name="name" /><br />
+		说明:<input type="text" value="@Model.tips" name="tips" /><br />
+		所需:<textarea name="needData" style="height:200px">@Model.needData</textarea><br />
+		奖励:<textarea name="pack" style="height:200px">@Model.pack</textarea><br />
+		开始时间:<input type="text" value="@Convert.ToDateTime( Model.addTime).ToString("yyyy-MM-dd HH:mm:ss")" name="addTime" placeholder="开始时间" /><br />
+		结束时间:<input type="text" value="@Convert.ToDateTime( Model.endTime).ToString("yyyy-MM-dd HH:mm:ss")" name="endTime" placeholder="结束时间" /><br />		
+		<input type="submit" value="确认保存" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Treasure/Index">返回藏宝阁管理</Abar>

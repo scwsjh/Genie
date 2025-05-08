@@ -1,0 +1,32 @@
+﻿@{
+    List<Service.Enties.genie_chat> ChatList = ViewBag.ChatList;
+
+}
+<div class="list">
+    @if (ChatList != null)
+    {
+        @foreach (var item in ChatList)
+        {
+            <div class="row">
+                @Html.Raw(item.code.Equals(Service.Core.ChatEnum.code.Public.ToString()) ? "[世界]" : "")
+                @Html.Raw(item.code.Equals(Service.Core.ChatEnum.code.User.ToString()) ? "[私聊]" : "")
+                @if (item.uid.Equals("0"))
+                {
+                    <span class="system">系统</span>
+                }
+                else
+                {
+                    <Nick sid="@ViewBag.MySid" user-no="@(int)item.uid"></Nick>
+                }
+                :
+                <span>
+                    @Html.Raw(Service.Core.ConvertContent.ConvertHtml(item.sign, ViewBag.MySid))
+                    </span>
+                @if (item.code == Service.Core.ChatEnum.code.User.ToString() && item.uid != 0)
+                {
+                    <span>&nbsp;&nbsp;<Abar sid="@ViewBag.MySid" href="/Chat/Index?t=1&u=@item.uid">(回复)</Abar></span>
+                }
+            </div>
+        }
+    }
+</div>

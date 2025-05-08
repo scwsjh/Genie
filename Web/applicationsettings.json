@@ -1,0 +1,40 @@
+﻿{
+  "license": {
+    "SecretKey": "",
+    "SecretSign": "",
+    "PubKey": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDV6Wd9k3MEHRAzk4dVtRw9MVrKGoZLvwJMYzcDrBJPNMJDtYmJFj6IzZd8ZTs/H9Zr6gNt6aVuh2zV1ykiPiCwEiIuGZ3kEZ2Ks3CvhLnnJ/RUL4SWKs3y8vZjx40LwB7DNwRr9FHVeyTJvs7WDr6ZTo5QugXD6lNLZ/EfHFlU9QIDAQAB"
+  },
+  "Cache": {
+    "redisconnectionstring": "127.0.0.1:6379,password=,defaultdatabase=5"
+  },
+  "mongodb": {
+    "mongoconnection": "mongodb://127.0.0.1:27017",
+    "mongodatabase": ""
+  },
+  "SqlData": {
+    "Sqltype": "mysql",
+    "ConRes": "server=;uid=;pwd=;database=;Encrypt=True;TrustServerCertificate=True;",
+    "ConGame": "server=;uid=;pwd=;database=;Encrypt=True;TrustServerCertificate=True;"
+  },
+  "Sms": {
+    "SmsType": 1, //阿里云0 腾讯云1
+    "AccessKey": "",
+    "Secret": "",
+    "signName": "",
+    "TemplateCode": "",
+    "SmsSdkAppId": "",
+    "SmsOnTime": 300
+  },
+  "ResUrl": {
+    "local": "",
+    "resUrl": "",
+    "imgCDN": "",
+    "videoCDN": ""
+  },
+  "KxPay": {
+    "merchNo": "",
+    "accessKey": "",
+    "notifyUrl": "",
+    "cashUrl": ""
+  }
+}

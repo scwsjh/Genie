@@ -1,0 +1,73 @@
+﻿@model genie_genie
+@{
+    bool isHave = ViewBag.IsHave;
+    List<TowerGet> Award = ViewBag.Award;
+}
+
+<div class="module-title">
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;<Abar sid="@ViewBag.MySid" href="/Map/Index?t=@Model.type">图鉴</Abar>&gt;图鉴资料
+</div>
+<div class="module-content">
+    <img alt="." src="/res/genie/@string.Format("{0}",isHave?Model.img:"null.gif")" style="max-height:80px" />
+    <div>
+        精灵：@Model.name<br />
+        类型：@GenieTool.GetGenieTypeTips((int)Model.type)<br />
+        介绍：@Model.remark<br />
+    </div>
+    @if (!isHave)
+    {
+        <div>
+            天赋：？<br />
+            魅力：？&nbsp;&nbsp;生命：？
+        </div>
+    }
+    else
+    {
+        <div>
+            @if (string.IsNullOrEmpty(Model.skill))
+            {
+                <div>
+                    天赋：暂无
+                </div>
+            }
+            else
+            {
+                SkillItem skill = JsonConvert.DeserializeObject<SkillItem>(Model.skill);
+                <div>
+                    天赋：<Abar sid="@ViewBag.MySid" href="/Map/Skill?gen=@Model.genieId">@skill.skill.name</Abar>
+                </div>
+            }
+
+            魅力：@Model.charm &nbsp;&nbsp;生命：@Model.blood
+        </div>
+    }
+</div>
+@if (Award.Count > 0)
+{
+    <div class="clear"></div>
+    <div class="name">图鉴奖励</div>
+    <div class="content">
+        @Html.Raw(GameTool.GetPropTips(Award, 1, 1, ViewBag.MySid))
+    </div>
+    if (isHave)
+    {
+        if (ViewBag.isGet == 0)
+        {
+            <div>【<Abar sid="@ViewBag.MySid" href="/Map/GetAward/@Model.genieId" token="true">立即领取</Abar>】</div>
+        }
+        else
+        {
+            <div>
+                <img alt="." src="/res/img/w.gif" />
+                奖励已领取.
+            </div>
+        }
+    }
+}
+<div class="clear"></div>
+
+<Abar sid="@ViewBag.MySid" href="/Map/Index?t=@Model.type">返回图鉴</Abar>
+<div style="height:15px"></div>
+<div>
+    <Abar sid="@ViewBag.MySid" href="/Index/Index">精灵主页</Abar>&gt;<Abar sid="@ViewBag.MySid" href="/Map/Index?t=@Model.type">图鉴</Abar>&gt;图鉴资料
+</div>

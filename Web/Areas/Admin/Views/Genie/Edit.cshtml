@@ -1,0 +1,33 @@
+﻿@model genie_genie
+@{
+
+}
+<div class="module-title">
+	精灵管理
+</div>
+<PageMsg sid="@ViewBag.MySid"></PageMsg>
+<div class="content">
+	<FormBar sid="@ViewBag.MySid" action="/Admin/Genie/EditOk" method="post">
+		ID:<input type="number" value="@Model.genieId" name="genieId" /><br />
+		名称:<input type="text" value="@Model.name" name="name"  /><br />
+		类型:
+		@Html.DropDownListFor(model => model.type, new SelectList(new[]
+					{
+		new { Value = "1", Text = "普通" },
+		new { Value = "2", Text = "精英" },
+		new { Value = "3", Text = "珍稀" },
+		new { Value = "4", Text = "传说" }
+		}, "Value", "Text"))		
+		<br />
+		图片:<input type="text" value="@Model.img" name="img" /><br />
+		魅力:<input type="number" value="@Model.charm" name="charm" /><br />
+		生命:<input type="number" value="@Model.blood" name="blood" /><br />
+		说明:<input type="text" value="@Model.remark" name="remark" /><br />
+		天赋:<textarea name="skill" style="height:100px">@Model.skill</textarea><br />
+		升级配置:<textarea name="upNeed" style="height:200px">@Model.upNeed</textarea><br />
+		图鉴奖励:<textarea name="mapAward" style="height:200px">@Model.mapAward</textarea><br />
+		<input type="submit" value="确认保存" class="btn btn-danger">
+	</FormBar>
+</div>
+<div class="clear"></div>
+<Abar sid="@ViewBag.MySid" href="/Admin/Genie/Index">返回精灵管理</Abar>

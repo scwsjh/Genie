@@ -1,0 +1,21 @@
+﻿
+<div id="footer" class="foot">
+    @if (ViewBag.IsOnLine == true)
+    {
+        <div>
+            <a href="@ViewBag.SiteUrl">@ViewBag.SiteName</a>-<a href="@ViewBag.PlateUrl">广场</a>-<a href="@ViewBag.OutUrl">退出</a><br />
+            <a href="@ViewBag.MyHomeUrl">我的家园</a>
+        </div>
+    }
+    else
+    {
+        <div>
+            <a href="@ViewBag.SiteUrl">首页</a>-<a href="@ViewBag.PlateUrl">广场</a>-<a href="@ViewBag.LoginUrl">登陆</a><br />
+            亲！登陆享受更多功能哟！<br />
+        </div>
+    }
+
+    <div class="timeService">
+        @string.Format(ViewBag.TimeName, DateTime.Now.ToString("HH:mm"))
+    </div>    
+</div>

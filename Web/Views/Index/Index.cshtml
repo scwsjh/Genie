@@ -1,0 +1,133 @@
+﻿@{
+    genie_user GenieUser = ViewBag.UserInfo;
+    LevData levData = ViewBag.LevInfo;
+    List<CallTemp> CallData = ViewBag.CallRes;
+    int count = 1;
+    int GenieCount = ViewBag.MyGenieCount;
+    genie_user_vigor VigorInfo = ViewBag.MyVigor;
+    List<genie_thing> ThingData = ViewBag.Thing;
+    List<genie_notice> notice = ViewBag.Notice;
+    int ThingCount = 1;
+}
+@if (GenieUser.poin < GameConfig.MaxPoin)
+{
+    <div class="note">
+        <img src="/image/001.gif" /> <Abar sid="@ViewBag.MySid" href="/Index/Wu">您受到敌对精灵攻击,精灵坞受到破坏!</Abar>
+    </div>
+}
+<div class="module-title">
+    <a sid="@ViewBag.MySid" href="@string.Format(ViewBag.MyHomeUrl,ViewBag.MySid)">我的家园</a>&gt;精灵大乐斗
+</div>
+@if (notice.Count > 0)
+{
+<div class="content">
+        @foreach (var item in notice)
+        {
+            <div class="item">
+                <Abar sid="@ViewBag.MySid" href="/Notice/Detail?nt=@item.noticeId">@item.title</Abar>
+            </div>
+        }
+</div>    
+}
+<div class="module-content">
+    <div class="menu">
+        我的主页|<Abar sid="@ViewBag.MySid" href="/Team/Index">我的编队</Abar>
+    </div>
+    <div class="content">
+        <img src="/res/img/sh.gif" alt="." />昵称：@ViewBag.MyNick [@string.Format("{0}级", GenieUser.lev)]<br />
+        <img src="/image/10352.gif" alt="." style="height: 16px;" />称号：@levData.name<br />
+        <img src="/res/img/lv.gif" style="width: 16px;" alt="." />我的元气：@VigorInfo.vigor
+        @if (VigorInfo.vigor < GameConfig.MaxVigor)
+        {
+            double diffTime = TimeHelper.TimeDiffSeconds(DateTime.Now, Convert.ToDateTime(VigorInfo.upTime).AddMinutes(GameConfig.VigorTime));
+            <img alt="." src="~/res/img/10144.gif" />
+            <span style="font-size:14px;">@string.Format("({0}后可收获)", TimeHelper.TimeDiffBySeconds((int)diffTime, ""))</span>
+        }
+        <br />
+        <img src="/res/img/cj.gif" style="height: 16px;" alt=".">我的精灵：@string.Format("{0}/{1}", GenieCount, ViewBag.MaxGenCount)&nbsp;<Abar sid="@ViewBag.MySid" href="/Genie/Index">(查看)</Abar>
+    </div>
+</div>
+<div class="name">
+    <img src="/res/img/home.gif" alt=".">秘境召唤：<img src="/res/img/sx.gif" style="width: 19px;" alt="."><Abar sid="@ViewBag.MySid" href="/Index/Index">刷新</Abar>  <span style="margin-left:10px;"><img src="/image/10342.gif" style="width: 15px;height:15px" alt="."><Abar sid="@ViewBag.MySid" href="/Call/Index">所有秘境</Abar></span>
+</div>
+<div class="modal-content">
+    <div class="list">
+        @foreach (var item in CallData)
+        {
+            if (GenieUser.lev >= item.call.lev)
+            {
+                <div class="row">
+                    @string.Format("{0}.", count)
+                    <Abar sid="@ViewBag.MySid" href="/Call/Info/@item.call.id">@item.call.name</Abar>
+                    @if (item.time >= 1)
+                    {
+                        <span>（冷却:<b style="color:red;font-size:15px">@TimeHelper.TimeDiffBySeconds((int)item.time, "")</b>）</span>
+                    }
+                    else
+                    {
+                        <span>(可召唤)</span>
+                    }
+                </div>
+                count++;
+            }
+        }
+    </div>
+</div>
+<div style="height:10px"></div>
+<div class="name">
+    <img src="/res/img/dh.gif" alt=".">精灵指引
+</div>
+<div class="module-content">
+    <div>
+        我的：<Abar sid="@ViewBag.MySid" href="/Index/Wu"><img src="/image/wu.gif" style="height: 16px;" alt=".">精灵坞</Abar>. <Abar sid="@ViewBag.MySid" href="/Goods/Index"><img src="/res/img/bb.gif" style="height: 16px;" alt=".">储物箱</Abar>.
+        <Abar sid="@ViewBag.MySid" href="/Map/Index"><img src="/res/img/ck.gif" style="height: 16px;" alt=".">图鉴</Abar>
+    </div>
+    <div>
+        赛事：<Abar sid="@ViewBag.MySid" href="/Match/Index"><img src="/res/img/ds.gif" style="height: 16px;" alt=".">争霸赛</Abar>. <img src="/res/img/10330.gif" style="height: 16px;" alt="."><Abar sid="@ViewBag.MySid" href="/Trial/Index">试炼场</Abar>. <img src="/res/img/10285.gif" style="height: 16px;" alt="."><Abar sid="@ViewBag.MySid" href="/Dou/Index">大乐斗</Abar>
+    </div>
+    <div>
+        辅助：<img src="/res/img/qd.gif" style="height: 16px;" alt="."><Abar sid="@ViewBag.MySid" href="/Welfare/Index">福利社</Abar>. <img src="/res/img/yz.gif" style="height: 16px;" alt="."><Abar sid="@ViewBag.MySid" href="/Treasure/Index">藏宝阁</Abar>. <Abar sid="@ViewBag.MySid" href="/Store/Index"><img src="/res/img/sd.gif" style="height: 16px;" alt=".">商店</Abar>
+    </div>
+    <div>
+        其他：<img src="/image/10252.gif" style="height: 16px;" alt="."><Abar sid="@ViewBag.MySid" href="/Arena/Index">擂台</Abar>. <img src="/res/img/cj2.gif" style="height: 16px;" alt="."><Abar sid="@ViewBag.MySid" href="/Index/Rank">排行榜</Abar>. <img src="/image/10067.gif" style="height: 16px;" alt="."><a href="@string.Format(ViewBag.BbsUrl,ViewBag.MySid)">论坛</a>
+    </div>
+    @if (ViewBag.IsAdmin == true)
+    {
+        <div>
+            管理：<Abar sid="@ViewBag.MySid" href="/Admin/Index/Index">进入后台</Abar>
+        </div>
+    }
+</div>
+<div style="height:10px"></div>
+<div class="name">
+    <img src="/image/10066.gif" alt=".">世界消息 &nbsp;&nbsp;<Abar sid="@ViewBag.MySid" href="/Chat/Index">喊话</Abar>
+</div>
+<div class="module-content">
+    <partial name="/Views/Shared/Chat.cshtml" />
+</div>
+<div style="height:10px"></div>
+<div class="name">
+    <img src="/res/img/dt.gif" alt=".">精灵动态  <img src="/res/img/ck2.gif" alt="."><Abar sid="@ViewBag.MySid" href="/Thing/Index">查看更多</Abar>
+</div>
+<div class="module-content">
+    @if (ThingData.Count == 0)
+    {
+        <span>暂无动态.</span>
+    }
+    <div class="list">
+        @foreach (var item in ThingData)
+        {
+            <div class="row">
+                @string.Format("{0}.({1})", ThingCount, TimeHelper.TimeDiff((DateTime)item.addTime, DateTime.Now))
+                <Nick user-no="@(int)item.uid" sid="@ViewBag.MySid"></Nick>
+                @Html.Raw(Service.Core.ConvertContent.ConvertHtml(item.sign, ViewBag.MySid))
+            </div>
+            ThingCount++;
+        }
+    </div>
+</div>
+
+<div class="clear" style="height:15px"></div>
+<div>
+    <a sid="@ViewBag.MySid" href="@string.Format(ViewBag.MyHomeUrl,ViewBag.MySid)">我的家园</a>&gt;精灵大乐斗
+</div>

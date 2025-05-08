@@ -1,0 +1,30 @@
+﻿@model genie_monster
+@{
+    
+}
+
+<div class="module-title">
+    精灵资料
+</div>
+<div class="module-content">  
+    <div>
+        精灵：@Model.name<br />        
+        等级：@string.Format("{0}级", Model.lev) <br />
+        星级：@for (int i = 0; i < Model.start; i++)
+        {
+            <span>✩</span>
+        }
+        @if (Model.start == 0)
+        {
+            <span style="text-decoration: line-through">✩</span>
+        }
+        @string.Format("({0}星)", Model.start)
+        <br />
+        介绍：@Model.remark<br />
+        天赋：暂无<br />
+        魅力：@GenieTool.GetGenAttrCompute((int)Model.charm, (int)Model.lev, (int)Model.start)&nbsp;&nbsp;生命：@GenieTool.GetGenAttrCompute((int)Model.blood, (int)Model.lev, (int)Model.start)
+    </div>
+</div>
+<div style="height:10px"></div>
+<a onclick="window.history.go(-1);">返回上一页</a>
+<div style="height:15px"></div>
